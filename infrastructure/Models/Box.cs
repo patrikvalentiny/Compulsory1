@@ -2,8 +2,10 @@
 
 public class Box
 {
-    public Guid Guid { get; set; } = Guid.NewGuid(); 
-    public decimal[]? Measurements { get; set; } = new decimal[3];
+    public Guid? Guid { get; set; }
+    public decimal? Width { get; set; }
+    public decimal? Height { get; set; }
+    public decimal? Depth { get; set; }
     public string? Location { get; set; }
     public string? Description { get; set; }
 }
