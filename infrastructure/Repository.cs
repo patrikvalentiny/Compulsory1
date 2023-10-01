@@ -43,7 +43,7 @@ public class Repository
         where guid = @guid";
         
         using var con = _dataSource.OpenConnection();
-        return con.QuerySingle<Box>(sql, new {guid});
+        return con.QuerySingle<Box>(sql, guid);
     }
 
     public Box CreateBox(Box box)
@@ -60,5 +60,30 @@ public class Repository
         
         using var con = _dataSource.OpenConnection();
         return con.QuerySingle<Box>(sql, box);
+    }
+
+    public Box UpdateBox(Box box)
+    {
+        const string sql = @$"UPDATE box_factory.box_inventory SET
+        width = @{nameof(Box.Width)}, height = @{nameof(Box.Height)}, depth = @{nameof(Box.Depth)}, location = @{nameof(Box.Location)},description = @{nameof(Box.Description)}
+        WHERE guid = @{nameof(Box.Guid)}
+        RETURNING 
+            guid as {nameof(Box.Guid)}, 
+            width as {nameof(Box.Width)}, 
+            height as {nameof(Box.Height)}, 
+            depth as {nameof(Box.Depth)}, 
+            location as {nameof(Box.Location)}, 
+            description as {nameof(Box.Description)}";
+        
+        using var con = _dataSource.OpenConnection();
+        return con.QuerySingle<Box>(sql, box);
+    }
+    
+    public int DeleteBox(Guid guid)
+    {
+        const string sql = @$"DELETE FROM box_factory.box_inventory WHERE guid = @guid";
+        
+        using var con = _dataSource.OpenConnection();
+        return con.Execute(sql, guid);
     }
 }
