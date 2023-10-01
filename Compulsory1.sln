@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "infrastructure", "infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "service", "service\service.csproj", "{5C974E31-5799-4262-9269-D8F47180801D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAPI", "TestAPI\TestAPI.csproj", "{393D1876-3DBA-4D0C-8C6C-A57CFCC1802B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "ApiTests\ApiTests.csproj", "{393D1876-3DBA-4D0C-8C6C-A57CFCC1802B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
