@@ -18,25 +18,33 @@ public class BoxStorageController : Controller
     [HttpGet ("")]
     public IActionResult GetAllBoxes()
     {
-        return Ok();
+        return Ok(_service.GetAllBoxes());
     }
     
     [HttpGet ("{guid}")]
     public IActionResult GetBoxByGuid([FromRoute]Guid guid)
     {
-        return Ok();
+        try
+        {
+            return Ok(_service.GetBoxByGuid(guid));
+        }
+        catch (InvalidOperationException e)
+        {
+            return NotFound("Box does not exist");
+        }
+        
     }
     
     [HttpPost("")]
     public IActionResult CreateBox([FromBody] Box box)
     {
-        return Ok(box);
+        return Ok(_service.CreateBox(box));
     }
     
     [HttpPut("")]
     public IActionResult UpdateBox([FromBody] Box box)
     {
-        return Ok();
+        return Ok(box);
     }
     
     [HttpDelete("{guid}")]
