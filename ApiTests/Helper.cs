@@ -1,9 +1,8 @@
-﻿using System.Runtime.CompilerServices;
-using Dapper;
+﻿using Dapper;
 using Newtonsoft.Json;
 using Npgsql;
 
-namespace TestAPI;
+namespace ApiTests;
 
 public static class Helper
 {

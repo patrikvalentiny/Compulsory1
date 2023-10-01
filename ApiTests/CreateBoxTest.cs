@@ -6,7 +6,7 @@ using infrastructure.Models;
 using Newtonsoft.Json;
 using Npgsql;
 
-namespace TestAPI;
+namespace ApiTests;
 
 public class CreateBoxTests
 {
