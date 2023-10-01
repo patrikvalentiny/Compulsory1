@@ -22,7 +22,7 @@ public class Repository
         depth as {nameof(Box.Depth)},
         location as {nameof(Box.Location)},
         description as {nameof(Box.Description)}
-
+        datetime_created as {nameof(Box.Created)}
         FROM box_factory.box_inventory";
         
         using var con = _dataSource.OpenConnection();
@@ -32,18 +32,20 @@ public class Repository
     public Box GetBoxByGuid(Guid guid)
     {
         const string sql = @$"SELECT 
+    
         guid as {nameof(Box.Guid)},
         width as {nameof(Box.Width)},
         height as {nameof(Box.Height)},
         depth as {nameof(Box.Depth)},
         location as {nameof(Box.Location)},
-        description as {nameof(Box.Description)}
+        description as {nameof(Box.Description)},
+        datetime_created as {nameof(Box.Created)}
 
         FROM box_factory.box_inventory
         where guid = @guid";
         
         using var con = _dataSource.OpenConnection();
-        return con.QuerySingle<Box>(sql, guid);
+        return con.QuerySingle<Box>(sql, new{guid});
     }
 
     public Box CreateBox(Box box)
@@ -56,7 +58,9 @@ public class Repository
             height as {nameof(Box.Height)}, 
             depth as {nameof(Box.Depth)}, 
             location as {nameof(Box.Location)}, 
-            description as {nameof(Box.Description)}";
+            description as {nameof(Box.Description)},
+            datetime_created as {nameof(Box.Created)}
+        ";
         
         using var con = _dataSource.OpenConnection();
         return con.QuerySingle<Box>(sql, box);
@@ -73,7 +77,9 @@ public class Repository
             height as {nameof(Box.Height)}, 
             depth as {nameof(Box.Depth)}, 
             location as {nameof(Box.Location)}, 
-            description as {nameof(Box.Description)}";
+            description as {nameof(Box.Description)}
+            datetime_created as {nameof(Box.Created)}
+            ";
         
         using var con = _dataSource.OpenConnection();
         return con.QuerySingle<Box>(sql, box);
@@ -84,6 +90,6 @@ public class Repository
         const string sql = @$"DELETE FROM box_factory.box_inventory WHERE guid = @guid";
         
         using var con = _dataSource.OpenConnection();
-        return con.Execute(sql, guid);
+        return con.Execute(sql, new {guid});
     }
 }

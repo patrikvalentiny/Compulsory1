@@ -44,7 +44,7 @@ public class BoxStorageController : Controller
     [HttpPut("")]
     public IActionResult UpdateBox([FromBody] Box box)
     {
-        return Ok(box);
+        return Ok(_service.UpdateBox(box));
     }
     
     [HttpDelete("{guid}")]
@@ -52,6 +52,7 @@ public class BoxStorageController : Controller
     {
         try
         {
+            _service.DeleteBox(guid);
             return NoContent();
         }
         catch (Exception e)

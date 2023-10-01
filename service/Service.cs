@@ -27,4 +27,14 @@ public class Service
     {
         return _repository.CreateBox(box);
     }
+
+    public Box UpdateBox(Box box)
+    {
+        return _repository.UpdateBox(box);
+    }
+    
+    public int DeleteBox(Guid guid)
+    {
+        return _repository.DeleteBox(guid);
+    }
 }
