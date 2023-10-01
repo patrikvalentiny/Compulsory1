@@ -21,22 +21,24 @@ public class CreateBoxTests
         _httpClient = new HttpClient();
 
         Helper.TriggerRebuild();
+        
+        _npgsql = Helper.CreateDataSource();
+    }
+
+    [Test]
+    public async Task CreateBox()
+    {
         var boxes = new Faker<Box>()
             .StrictMode(true)
-            .RuleFor(o => o.Width, f => f.Random.Decimal(max: 300m))
-            .RuleFor(o => o.Height, f => f.Random.Decimal(max: 300m))
-            .RuleFor(o => o.Depth, f => f.Random.Decimal(max: 300m))
+            .RuleFor(o => o.Width, f => f.Random.Decimal(min:0.01m, max: 300m))
+            .RuleFor(o => o.Height, f => f.Random.Decimal(min:0.01m, max: 300m))
+            .RuleFor(o => o.Depth, f => f.Random.Decimal(min:0.01m, max: 300m))
             .RuleFor(o => o.Description, f => f.Lorem.Text())
             .RuleFor(o => o.Location, f => f.Address.FullAddress())
             .RuleFor(o => o.Guid, f => f.Random.Guid().OrNull(f, 1f))
             .RuleFor(o => o.Created, f => f.Date.Soon().OrNull(f, 1f));
         _box = boxes.Generate();
-        _npgsql = Helper.CreateDataSource();
-    }
-
-    [Test]
-    public async Task Test1()
-    {
+        
         var url = "http://localhost:5000/api/boxes";
 
         HttpResponseMessage response;
