@@ -5,7 +5,6 @@ namespace service;
 
 public class Service
 {
-
     private readonly Repository _repository;
 
     public Service(Repository repository)
@@ -32,7 +31,7 @@ public class Service
     {
         return _repository.UpdateBox(box);
     }
-    
+
     public int DeleteBox(Guid guid)
     {
         return _repository.DeleteBox(guid);

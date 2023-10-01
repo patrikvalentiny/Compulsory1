@@ -24,7 +24,7 @@ public class Repository
         description as {nameof(Box.Description)}
         datetime_created as {nameof(Box.Created)}
         FROM box_factory.box_inventory";
-        
+
         using var con = _dataSource.OpenConnection();
         return con.Query<Box>(sql);
     }
@@ -43,9 +43,9 @@ public class Repository
 
         FROM box_factory.box_inventory
         where guid = @guid";
-        
+
         using var con = _dataSource.OpenConnection();
-        return con.QuerySingle<Box>(sql, new{guid});
+        return con.QuerySingle<Box>(sql, new { guid });
     }
 
     public Box CreateBox(Box box)
@@ -61,7 +61,7 @@ public class Repository
             description as {nameof(Box.Description)},
             datetime_created as {nameof(Box.Created)}
         ";
-        
+
         using var con = _dataSource.OpenConnection();
         return con.QuerySingle<Box>(sql, box);
     }
@@ -80,16 +80,16 @@ public class Repository
             description as {nameof(Box.Description)}
             datetime_created as {nameof(Box.Created)}
             ";
-        
+
         using var con = _dataSource.OpenConnection();
         return con.QuerySingle<Box>(sql, box);
     }
-    
+
     public int DeleteBox(Guid guid)
     {
-        const string sql = @$"DELETE FROM box_factory.box_inventory WHERE guid = @guid";
-        
+        const string sql = @"DELETE FROM box_factory.box_inventory WHERE guid = @guid";
+
         using var con = _dataSource.OpenConnection();
-        return con.Execute(sql, new {guid});
+        return con.Execute(sql, new { guid });
     }
 }

@@ -39,10 +39,7 @@ app.UseCors(options =>
 });
 
 app.UseSpaStaticFiles();
-app.UseSpa(conf =>
-{
-    conf.Options.SourcePath = frontEndRelativePath;
-});
+app.UseSpa(conf => { conf.Options.SourcePath = frontEndRelativePath; });
 
 app.MapControllers();
 

@@ -9,20 +9,20 @@ namespace api.Controllers;
 public class BoxStorageController : Controller
 {
     private readonly Service _service;
-    
+
     public BoxStorageController(Service service)
     {
         _service = service;
     }
-    
-    [HttpGet ("")]
+
+    [HttpGet("")]
     public IActionResult GetAllBoxes()
     {
         return Ok(_service.GetAllBoxes());
     }
-    
-    [HttpGet ("{guid}")]
-    public IActionResult GetBoxByGuid([FromRoute]Guid guid)
+
+    [HttpGet("{guid}")]
+    public IActionResult GetBoxByGuid([FromRoute] Guid guid)
     {
         try
         {
@@ -32,21 +32,20 @@ public class BoxStorageController : Controller
         {
             return NotFound("Box does not exist");
         }
-        
     }
-    
+
     [HttpPost("")]
     public IActionResult CreateBox([FromBody] Box box)
     {
         return Ok(_service.CreateBox(box));
     }
-    
+
     [HttpPut("")]
     public IActionResult UpdateBox([FromBody] Box box)
     {
         return Ok(_service.UpdateBox(box));
     }
-    
+
     [HttpDelete("{guid}")]
     public IActionResult DeleteBox([FromRoute] Guid guid)
     {
@@ -59,6 +58,5 @@ public class BoxStorageController : Controller
         {
             return BadRequest(e.Message);
         }
-        
     }
 }
