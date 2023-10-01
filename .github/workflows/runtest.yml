@@ -1,0 +1,24 @@
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  
+  
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet run
+        env:
+          pgconn: ${{secrets.pgconn}}
+      - run: dotnet test
+        env:
+          pgconn: ${{secrets.pgconn}}
+      - run: kill -9 $(lsof -t -i:5000) 
