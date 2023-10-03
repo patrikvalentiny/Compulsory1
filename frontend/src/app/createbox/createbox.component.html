@@ -1,0 +1,52 @@
+<div class="flex flex-col w-full p-2 gap-2">
+  <h1 class="font-mono text-2xl">Create box</h1>
+  <div class="flex flex-row justify-around">
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Enter amount</span>
+      </label>
+      <label class="input-group">
+        <span>Width</span>
+        <input [formControl]="widthInput" type="text" placeholder="10" class="input input-bordered"/>
+        <span>cm</span>
+      </label>
+    </div>
+
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Enter amount</span>
+      </label>
+      <label class="input-group">
+        <span>Height</span>
+        <input [formControl]="heightInput" type="text" placeholder="10" class="input input-bordered"/>
+        <span>cm</span>
+      </label>
+    </div>
+
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Enter amount</span>
+      </label>
+      <label class="input-group">
+        <span>Depth</span>
+        <input [formControl]="depthInput" type="text" placeholder="10" class="input input-bordered"/>
+        <span>cm</span>
+      </label>
+    </div>
+  </div>
+  <div class="form-control w-full max-w-xs">
+    <label class="label">
+      <span class="label-text">Location</span>
+    </label>
+    <input [formControl]="locationInput" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+  </div>
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">Box description</span>
+    </label>
+    <textarea [formControl]="descriptionInput" class="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+  </div>
+
+  <button class="btn btn-primary" (click)="createBox()">Submit</button>
+
+</div>

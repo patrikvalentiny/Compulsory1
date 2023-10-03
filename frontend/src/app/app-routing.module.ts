@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
+import {CreateBoxComponent} from "./createbox/createbox.component";
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
     path: 'home',
     redirectTo: '',
     pathMatch: 'full'
+  },
+  {
+    path: 'create',
+    component:CreateBoxComponent
   },
 ];
 
