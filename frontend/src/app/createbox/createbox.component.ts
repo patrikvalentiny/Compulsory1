@@ -2,7 +2,6 @@ import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Box} from "../box";
 import {CrudService} from "../crud.service";
-
 @Component({
   selector: 'app-createbox',
   templateUrl: './createbox.component.html',

@@ -1,9 +1,9 @@
-<div class="flex flex-col w-full h-full gap-8">
+<div class="flex flex-col flex-wrap w-full gap-8">
   <h1 class="font-mono text-2xl">Create box</h1>
-  <div class="flex flex-row justify-left gap-3">
+  <div class="flex flex-row flex-wrap justify-left gap-3">
     <div class="form-control">
       <label class="input-group">
-        <span>Width</span>
+        <span class="w-20 justify-center">Width</span>
         <input [formControl]="widthInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
         <span>cm</span>
       </label>
@@ -11,7 +11,7 @@
 
     <div class="form-control">
       <label class="input-group">
-        <span>Height</span>
+        <span class="w-20 justify-center">Height</span>
         <input [formControl]="heightInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
         <span>cm</span>
       </label>
@@ -19,7 +19,7 @@
 
     <div class="form-control">
       <label class="input-group">
-        <span>Depth</span>
+        <span class="w-20 justify-center">Depth</span>
         <input [formControl]="depthInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
         <span>cm</span>
       </label>

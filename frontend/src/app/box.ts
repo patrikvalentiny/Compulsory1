@@ -6,6 +6,4 @@ export interface Box {
   location: string
   description: string
   created: string
-
-  toString(): string
 }

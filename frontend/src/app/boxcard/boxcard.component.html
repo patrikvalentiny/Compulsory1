@@ -1,0 +1,11 @@
+<div class="flex flex-row flex-wrap justify-center gap-4">
+  <div *ngFor="let box of service.boxes" class="card w-96 bg-base-200 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title">{{box.width}}X{{box.height}}X{{box.depth}}</h2>
+      <p>{{box.description}}</p>
+      <div class="card-actions justify-end">
+        <button (click)="selectBox(box.guid)" class="btn btn-primary">Select</button>
+      </div>
+    </div>
+  </div>
+</div>

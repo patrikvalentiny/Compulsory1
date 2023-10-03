@@ -10,10 +10,22 @@ import {FormGroup} from "@angular/forms";
 export class CrudService {
   private readonly http = inject(HttpClient)
 
-  constructor() { }
+  public boxes: Box[] = [];
+
+  constructor() {
+    this.getBoxes();
+  }
 
   async createBox(formGroup: FormGroup) {
     const call = this.http.post<Box>("http://localhost:5000/api/boxes", formGroup.value);
-    return await firstValueFrom<Box>(call);
+    const response = await firstValueFrom<Box>(call);
+    this.boxes.push(response);
+    return response;
+
+  }
+
+  async getBoxes() {
+    const call = this.http.get<Box[]>("http://localhost:5000/api/boxes");
+    this.boxes = await firstValueFrom<Box[]>(call);
   }
 }
