@@ -1,8 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
-import {firstValueFrom} from "rxjs";
 import {Box} from "../box";
+import {CrudService} from "../crud.service";
 
 @Component({
   selector: 'app-createbox',
@@ -10,7 +9,7 @@ import {Box} from "../box";
   styleUrls: ['./createbox.component.css']
 })
 export class CreateBoxComponent {
-  private readonly http = inject(HttpClient)
+  private readonly service = inject(CrudService);
 
   widthInput = new FormControl(0, [Validators.required, Validators.min(0)]);
   heightInput = new FormControl(0, [Validators.required, Validators.min(0)]);
@@ -31,9 +30,7 @@ export class CreateBoxComponent {
 
   }
 
-
   async createBox() {
-    const call = this.http.post<Box>("http://localhost:5000/api/boxes", this.formGroup.value);
-    this.respondBox = await firstValueFrom<Box>(call);
+    this.respondBox = await this.service.createBox(this.formGroup);
   }
 }

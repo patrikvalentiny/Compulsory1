@@ -14,7 +14,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'create',
+    path: 'add',
     component:CreateBoxComponent
   },
 ];

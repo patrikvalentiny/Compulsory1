@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CreateBoxComponent } from './createbox/createbox.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [

@@ -1,6 +1,6 @@
 <div class="drawer lg:drawer-open">
   <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content flex flex-col items-center justify-top">
+  <div class="drawer-content flex flex-col items-center justify-top px-12 py-4">
     <!-- Page content here -->
     <div class="flex flex-row p-2 w-full  justify-start items-center">
       <label for="my-drawer-2" class="btn btn-circle btn-outline swap swap-rotate lg:hidden h-12">
@@ -22,13 +22,15 @@
       </div>
     </div>
 
+    <app-createbox class="w-full"></app-createbox>
+
 
   </div>
   <div class="drawer-side">
     <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
       <!-- Sidebar content here -->
-      <li><a>Sidebar Item 1</a></li>
+      <li><a routerLink="/add">Add box</a></li>
       <li><a>Sidebar Item 2</a></li>
     </ul>
 
