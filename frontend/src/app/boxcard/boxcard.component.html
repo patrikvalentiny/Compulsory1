@@ -4,7 +4,7 @@
       <h2 class="card-title">{{box.width}}X{{box.height}}X{{box.depth}}</h2>
       <p>{{box.description}}</p>
       <div class="card-actions justify-end">
-        <button (click)="selectBox(box.guid)" class="btn btn-primary">Select</button>
+        <button (click)="deleteBox(box.guid)" class="btn btn-error">Delete</button>
       </div>
     </div>
   </div>

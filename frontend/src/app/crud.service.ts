@@ -28,4 +28,14 @@ export class CrudService {
     const call = this.http.get<Box[]>("http://localhost:5000/api/boxes");
     this.boxes = await firstValueFrom<Box[]>(call);
   }
+
+  async deleteBox(guid: string) {
+    try{
+      const call = this.http.delete(`http://localhost:5000/api/boxes/${guid}`);
+      await firstValueFrom(call);
+      this.boxes = this.boxes.filter(b => b.guid != guid);
+    } catch (e){
+
+    }
+  }
 }

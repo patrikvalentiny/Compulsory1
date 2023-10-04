@@ -12,4 +12,8 @@ export class BoxCardComponent {
   selectBox(guid: string) {
 
   }
+
+  deleteBox(guid: string) {
+    this.service.deleteBox(guid);
+  }
 }
