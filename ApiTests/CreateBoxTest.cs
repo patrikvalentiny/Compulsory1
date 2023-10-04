@@ -1,18 +1,9 @@
-using System.Net.Http.Json;
-using Bogus;
-using Dapper;
-using FluentAssertions.Execution;
-using infrastructure.Models;
-using Newtonsoft.Json;
-using Npgsql;
-
 namespace ApiTests;
 
 public class CreateBoxTests
 {
     private Box _box;
     private HttpClient _httpClient;
-    private NpgsqlDataSource _npgsql;
     private Box _response;
 
     [SetUp]
@@ -21,8 +12,6 @@ public class CreateBoxTests
         _httpClient = new HttpClient();
 
         Helper.TriggerRebuild();
-        
-        _npgsql = Helper.CreateDataSource();
     }
 
     [Test]
@@ -80,7 +69,7 @@ public class CreateBoxTests
     [TearDown]
     public void TearDown()
     {
-        using var conn = _npgsql.OpenConnection();
+        using var conn = Helper.DataSource.OpenConnection();
         conn.Execute("DELETE FROM box_factory.box_inventory WHERE guid = @guid", _response);
     }
 }
