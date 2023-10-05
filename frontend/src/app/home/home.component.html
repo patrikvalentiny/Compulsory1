@@ -22,8 +22,8 @@
       </div>
     </div>
 
-    <app-createbox class="w-full"></app-createbox>
-    <app-boxcard class="w-full"></app-boxcard>
+    <router-outlet class="w-full"></router-outlet>
+
 
 
   </div>
@@ -31,8 +31,8 @@
     <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu p-4 w-56 min-h-full bg-base-200 text-base-content">
       <!-- Sidebar content here -->
+      <li><a routerLink="/">Box inventory</a></li>
       <li><a routerLink="/add">Add box</a></li>
-      <li><a>Sidebar Item 2</a></li>
     </ul>
 
   </div>

@@ -1,26 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomeComponent} from "./home/home.component";
 import {CreateBoxComponent} from "./createbox/createbox.component";
+import {BoxCardComponent} from "./boxcard/boxcard.component";
+import {UpdateBoxComponent} from "./updatebox/updatebox.component";
 
 const routes: Routes = [
   {
     path: '',
-    component:HomeComponent
+    component: BoxCardComponent
   },
   {
     path: 'home',
-    redirectTo: '',
+    redirectTo: ''  ,
     pathMatch: 'full'
   },
   {
     path: 'add',
     component:CreateBoxComponent
   },
+  {
+    path: 'update/:guid',
+    component:UpdateBoxComponent
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {bindToComponentInputs:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

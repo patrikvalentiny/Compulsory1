@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { CreateBoxComponent } from './createbox/createbox.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import { BoxCardComponent } from './boxcard/boxcard.component';
+import {BoxCardComponent } from './boxcard/boxcard.component';
+import {UpdateBoxComponent} from "./updatebox/updatebox.component";
+import {HomeComponent} from "./home/home.component";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { BoxCardComponent } from './boxcard/boxcard.component';
     HomeComponent,
     CreateBoxComponent,
     BoxCardComponent,
+    UpdateBoxComponent,
   ],
   imports: [
     BrowserModule,
