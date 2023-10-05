@@ -4,7 +4,7 @@
       <h2 class="card-title">{{box.width.toFixed(2)}}X{{box.height.toFixed(2)}}X{{box.depth.toFixed(2)}}</h2>
       <p>{{box.description}}</p>
       <div class="card-actions flex flex-row justify-end">
-        <a routerLink="/update/{{box.guid}}}"><button class="btn btn-primary">Update</button></a>
+        <a routerLink="/update/{{box.guid}}"><button class="btn btn-primary">Update</button></a>
         <button (click)="deleteBox(box.guid)" class="btn btn-secondary">Delete</button>
       </div>
     </div>

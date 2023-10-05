@@ -38,10 +38,5 @@
     <textarea [formControl]="descriptionInput" class="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
   </div>
 
-  <button class="btn btn-primary my-2" (click)="createBox()">Submit</button>
-  <pre *ngIf="respondBox != undefined">
-    {{respondBox?.guid}}
-    {{respondBox?.description}}
-  </pre>
-
+  <button class="btn btn-primary my-2" [disabled]="formGroup.invalid" (click)="createBox()">Submit</button>
 </div>

@@ -10,8 +10,8 @@ import {CrudService} from "../crud.service";
 export class UpdateBoxComponent implements OnInit{
   private readonly service = inject(CrudService);
   @Input('guid') boxGuid = '';
-  selectedBox: Box | undefined;
 
+  selectedBox: Box | undefined;
   widthInput = new FormControl(0, [Validators.required, Validators.min(0)]);
   heightInput = new FormControl(0, [Validators.required, Validators.min(0)]);
   depthInput = new FormControl(0, [Validators.required, Validators.min(0)]);
@@ -27,15 +27,22 @@ export class UpdateBoxComponent implements OnInit{
     description: this.descriptionInput,
     location: this.locationInput
   })
+
   constructor() {
 
   }
 
   ngOnInit(): void {
+    this.selectedBox = this.service.boxes.find(box => box.guid === this.boxGuid);
 
+    this.widthInput.setValue(this.selectedBox?.width || null);
+    this.heightInput.setValue(this.selectedBox?.height || null);
+    this.depthInput.setValue(this.selectedBox?.depth || null);
+    this.descriptionInput.setValue(this.selectedBox?.description || null);
+    this.locationInput.setValue(this.selectedBox?.location || null);
   }
 
-  updateBox() {
-
+  async updateBox() {
+    await this.service.updateBox(this.formGroup, this.boxGuid);
   }
 }

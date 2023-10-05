@@ -38,4 +38,13 @@ export class CrudService {
 
     }
   }
+
+  async updateBox(formGroup: FormGroup, boxGuid: string) {
+    try{
+      const call = this.http.put(`http://localhost:5000/api/boxes/${boxGuid}`, formGroup.value);
+      await firstValueFrom(call);
+    } catch (e){
+        console.log(e)
+    }
+  }
 }

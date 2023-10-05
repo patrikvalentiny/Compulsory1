@@ -77,7 +77,7 @@ public class Repository
             height as {nameof(Box.Height)}, 
             depth as {nameof(Box.Depth)}, 
             location as {nameof(Box.Location)}, 
-            description as {nameof(Box.Description)}
+            description as {nameof(Box.Description)},
             datetime_created as {nameof(Box.Created)}
             ";
         
