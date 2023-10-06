@@ -1,0 +1,52 @@
+<h1 class="font-mono text-2xl">Update box</h1>
+<div class="flex flex-col flex-wrap w-full gap-8" *ngIf="selectedBox !== undefined">
+  <div class="form-control">
+    <label class="label cursor-pointer justify-end gap-2">
+      <span class="label-text">Allow editing</span>
+      <input type="checkbox" class="toggle toggle-error" [checked]="editingAllowed" (change)="allowEdit()" />
+    </label>
+  </div>
+  <div class="flex flex-row flex-wrap justify-left gap-3">
+    <div class="form-control">
+      <label class="input-group">
+        <span class="w-20 justify-center">Width</span>
+        <input [formControl]="widthInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
+        <span>cm</span>
+      </label>
+    </div>
+
+    <div class="form-control">
+      <label class="input-group">
+        <span class="w-20 justify-center">Height</span>
+        <input [formControl]="heightInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
+        <span>cm</span>
+      </label>
+    </div>
+
+    <div class="form-control">
+      <label class="input-group">
+        <span class="w-20 justify-center">Depth</span>
+        <input [formControl]="depthInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
+        <span>cm</span>
+      </label>
+    </div>
+  </div>
+  <div class="form-control w-full max-w-xs">
+    <label class="label">
+      <span class="label-text">Box location</span>
+    </label>
+    <input [formControl]="locationInput" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+  </div>
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">Box description</span>
+    </label>
+    <textarea [formControl]="descriptionInput" class="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+  </div>
+
+  <button class="btn btn-primary my-2" [disabled]="!editingAllowed" (click)="updateBox()">Update</button>
+  <pre *ngIf="respondBox !== undefined">
+    {{respondBox?.guid}}
+    {{respondBox?.description}}
+  </pre>
+</div>
