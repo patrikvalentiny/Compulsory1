@@ -19,13 +19,14 @@ public class CreateBoxTests
     {
         var boxes = new Faker<Box>()
             .StrictMode(true)
-            .RuleFor(o => o.Width, f => f.Random.Decimal(min:0.01m, max: 300m))
-            .RuleFor(o => o.Height, f => f.Random.Decimal(min:0.01m, max: 300m))
-            .RuleFor(o => o.Depth, f => f.Random.Decimal(min:0.01m, max: 300m))
+            .RuleFor(o => o.Width, f => f.Random.Decimal(min: 0.01m, max: 300m))
+            .RuleFor(o => o.Height, f => f.Random.Decimal(min: 0.01m, max: 300m))
+            .RuleFor(o => o.Depth, f => f.Random.Decimal(min: 0.01m, max: 300m))
             .RuleFor(o => o.Description, f => f.Lorem.Text())
             .RuleFor(o => o.Location, f => f.Address.FullAddress())
             .RuleFor(o => o.Guid, f => f.Random.Guid().OrNull(f, 1f))
-            .RuleFor(o => o.Created, f => f.Date.Soon().OrNull(f, 1f));
+            .RuleFor(o => o.Created, f => f.Date.Soon().OrNull(f, 1f))
+            .RuleFor(o => o.Title, f => f.Lorem.Sentence());
         _box = boxes.Generate();
         
         var url = "http://localhost:5000/api/boxes";
@@ -58,11 +59,7 @@ public class CreateBoxTests
         {
             (await Helper.IsCorsFullyEnabledAsync(url)).Should().BeTrue();
             response.IsSuccessStatusCode.Should().BeTrue();
-            responseObject.Description.Should().Be(_box.Description);
-            responseObject.Width.Should().Be(_box.Width);
-            responseObject.Height.Should().Be(_box.Height);
-            responseObject.Depth.Should().Be(_box.Depth);
-            responseObject.Location.Should().Be(_box.Location);
+            responseObject.Should().BeEquivalentTo(_box, options => options.Excluding(o => o.Guid).Excluding(o => o.Created));
         }
     }
 

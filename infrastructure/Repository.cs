@@ -22,7 +22,8 @@ public class Repository
         depth as {nameof(Box.Depth)},
         location as {nameof(Box.Location)},
         description as {nameof(Box.Description)},
-        datetime_created as {nameof(Box.Created)}
+        datetime_created as {nameof(Box.Created)},
+        title as {nameof(Box.Title)}
         FROM box_factory.box_inventory";
 
         using var con = _dataSource.OpenConnection();
@@ -39,7 +40,8 @@ public class Repository
         depth as {nameof(Box.Depth)},
         location as {nameof(Box.Location)},
         description as {nameof(Box.Description)},
-        datetime_created as {nameof(Box.Created)}
+        datetime_created as {nameof(Box.Created)},
+        title as {nameof(Box.Title)}
 
         FROM box_factory.box_inventory
         where guid = @guid";
@@ -50,8 +52,8 @@ public class Repository
 
     public Box CreateBox(Box box)
     {
-        const string sql = @$"INSERT INTO box_factory.box_inventory (width, height, depth, location, description) 
-        VALUES (@{nameof(Box.Width)}, @{nameof(Box.Height)}, @{nameof(Box.Depth)}, @{nameof(Box.Location)}, @{nameof(Box.Description)})
+        const string sql = @$"INSERT INTO box_factory.box_inventory (title, width, height, depth, location, description) 
+        VALUES (@{nameof(Box.Title)}, @{nameof(Box.Width)}, @{nameof(Box.Height)}, @{nameof(Box.Depth)}, @{nameof(Box.Location)}, @{nameof(Box.Description)})
         RETURNING 
             guid as {nameof(Box.Guid)}, 
             width as {nameof(Box.Width)}, 
@@ -59,7 +61,8 @@ public class Repository
             depth as {nameof(Box.Depth)}, 
             location as {nameof(Box.Location)}, 
             description as {nameof(Box.Description)},
-            datetime_created as {nameof(Box.Created)}
+            datetime_created as {nameof(Box.Created)},
+            title as {nameof(Box.Title)}
         ";
 
         using var con = _dataSource.OpenConnection();
@@ -68,7 +71,7 @@ public class Repository
 
     public Box UpdateBox(Box box)
     {
-        const string sql = @$"UPDATE box_factory.box_inventory SET
+        const string sql = @$"UPDATE box_factory.box_inventory SET title = @{nameof(Box.Title)},
         width = @{nameof(Box.Width)}, height = @{nameof(Box.Height)}, depth = @{nameof(Box.Depth)}, location = @{nameof(Box.Location)},description = @{nameof(Box.Description)}
         WHERE guid = @{nameof(Box.Guid)}
         RETURNING 
@@ -78,7 +81,8 @@ public class Repository
             depth as {nameof(Box.Depth)}, 
             location as {nameof(Box.Location)}, 
             description as {nameof(Box.Description)},
-            datetime_created as {nameof(Box.Created)}
+            datetime_created as {nameof(Box.Created)},
+            title as {nameof(Box.Title)}
             ";
 
         using var con = _dataSource.OpenConnection();

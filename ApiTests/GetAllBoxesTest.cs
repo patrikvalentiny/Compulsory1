@@ -20,14 +20,15 @@ public class GetAllBoxesTest
             .RuleFor(o => o.Description, f => f.Lorem.Text())
             .RuleFor(o => o.Location, f => f.Address.FullAddress())
             .RuleFor(o => o.Guid, f => f.Random.Guid())
-            .RuleFor(o => o.Created, f => f.Date.Soon());
+            .RuleFor(o => o.Created, f => f.Date.Soon())
+            .RuleFor(o => o.Title, f => f.Lorem.Sentence());
 
         using (var conn = Helper.DataSource.OpenConnection())
         {
             for (int i = 0; i < _boxCount; i++)
             {
-                const string sql = @$"INSERT INTO box_factory.box_inventory (guid, width, height, depth, location, description, datetime_created) 
-        VALUES (@{nameof(Box.Guid)}, @{nameof(Box.Width)}, @{nameof(Box.Height)}, @{nameof(Box.Depth)}, @{nameof(Box.Location)}, @{nameof(Box.Description)}, @{nameof(Box.Created)})
+                const string sql = @$"INSERT INTO box_factory.box_inventory (title, guid, width, height, depth, location, description, datetime_created) 
+        VALUES (@{nameof(Box.Title)}, @{nameof(Box.Guid)}, @{nameof(Box.Width)}, @{nameof(Box.Height)}, @{nameof(Box.Depth)}, @{nameof(Box.Location)}, @{nameof(Box.Description)}, @{nameof(Box.Created)})
         RETURNING 
             guid as {nameof(Box.Guid)}, 
             width as {nameof(Box.Width)}, 
@@ -35,7 +36,8 @@ public class GetAllBoxesTest
             depth as {nameof(Box.Depth)}, 
             location as {nameof(Box.Location)}, 
             description as {nameof(Box.Description)},
-            datetime_created as {nameof(Box.Created)}
+            datetime_created as {nameof(Box.Created)}, 
+            title as {nameof(Box.Title)}
         ";
                 Box box = boxes.Generate();
                 _boxes.Add(box);
@@ -45,7 +47,7 @@ public class GetAllBoxesTest
     }
 
     [Test]
-    public async Task CompareSizeInputToReturn()
+    public async Task TestReturnIsInput()
     {
         var url = "http://localhost:5000/api/boxes";
 

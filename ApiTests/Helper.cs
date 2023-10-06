@@ -14,15 +14,16 @@ public static class Helper
 DROP SCHEMA IF EXISTS box_factory CASCADE;
 CREATE SCHEMA box_factory;
 CREATE EXTENSION IF NOT EXISTS ""uuid-ossp"";
-create table if not exists box_factory.box_inventory
+create table box_factory.box_inventory
 (
-    guid             uuid                     default uuid_generate_v4() not null,
+    guid             uuid                     default uuid_generate_v4()       not null,
     width            numeric,
     height           numeric,
     depth            numeric,
     location         varchar(256),
     description      text,
-    datetime_created timestamp with time zone default CURRENT_TIMESTAMP
+    datetime_created timestamp with time zone default CURRENT_TIMESTAMP,
+    title            varchar(256)             default 'tmp'::character varying not null
 );
  ";
 

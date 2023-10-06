@@ -6,6 +6,9 @@ public class Box
 {
     public Guid? Guid { get; set; }
     [Required]
+    [MinLength(3)]
+    public string Title { get; set; }
+    [Required]
     [Range(0, 1000)]
     public decimal? Width { get; set; }
     [Required]
