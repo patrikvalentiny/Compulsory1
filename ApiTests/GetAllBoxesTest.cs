@@ -11,6 +11,13 @@ public class GetAllBoxesTest
     {
         _httpClient = new HttpClient();
         Helper.TriggerRebuild();
+
+        List<Material> materials;
+
+        using var conn = Helper.DataSource.OpenConnection();
+        var sql = @$"SELECT id as {nameof(Material.Id)}, material_name as {nameof(Material.Name)} FROM box_factory.materials";
+        materials = conn.Query<Material>(sql).ToList();
+        
         
         var boxes = new Faker<Box>()
             .StrictMode(true)
@@ -21,28 +28,18 @@ public class GetAllBoxesTest
             .RuleFor(o => o.Location, f => f.Address.FullAddress())
             .RuleFor(o => o.Guid, f => f.Random.Guid())
             .RuleFor(o => o.Created, f => f.Date.Soon())
-            .RuleFor(o => o.Title, f => f.Lorem.Sentence());
-
-        using (var conn = Helper.DataSource.OpenConnection())
+            .RuleFor(o => o.Title, f => f.Lorem.Sentence())
+            .RuleFor(o => o.Quantity, f => f.Random.Int(min: 1, max: 1000))
+            .RuleFor(o => o.Material, f => f.PickRandom<Material>(materials));
+        
+        sql = @$"INSERT INTO box_factory.box_inventory (guid, title, width, height, depth, location, description, quantity, material_id) 
+        VALUES (@{nameof(Box.Guid)}, @{nameof(Box.Title)}, @{nameof(Box.Width)}, @{nameof(Box.Height)}, @{nameof(Box.Depth)}, @{nameof(Box.Location)}, @{nameof(Box.Description)}, @{nameof(Box.Quantity)}, @material_id)";
+            
+        for (int i = 0; i < _boxCount; i++)
         {
-            for (int i = 0; i < _boxCount; i++)
-            {
-                const string sql = @$"INSERT INTO box_factory.box_inventory (title, guid, width, height, depth, location, description, datetime_created) 
-        VALUES (@{nameof(Box.Title)}, @{nameof(Box.Guid)}, @{nameof(Box.Width)}, @{nameof(Box.Height)}, @{nameof(Box.Depth)}, @{nameof(Box.Location)}, @{nameof(Box.Description)}, @{nameof(Box.Created)})
-        RETURNING 
-            guid as {nameof(Box.Guid)}, 
-            width as {nameof(Box.Width)}, 
-            height as {nameof(Box.Height)}, 
-            depth as {nameof(Box.Depth)}, 
-            location as {nameof(Box.Location)}, 
-            description as {nameof(Box.Description)},
-            datetime_created as {nameof(Box.Created)}, 
-            title as {nameof(Box.Title)}
-        ";
-                Box box = boxes.Generate();
-                _boxes.Add(box);
-                conn.Execute(sql, box);
-            }
+            Box box = boxes.Generate();
+            _boxes.Add(box);
+            conn.Execute(sql, new {guid = box.Guid, title = box.Title, width = box.Width, height = box.Height, depth = box.Depth, location = box.Location, description = box.Description, quantity = box.Quantity, material_id = box.Material.Id});
         }
     }
 

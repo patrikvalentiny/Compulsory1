@@ -22,12 +22,12 @@ public class Service
         return _repository.GetBoxByGuid(guid);
     }
 
-    public Box CreateBox(Box box)
+    public BoxWithMaterialId CreateBox(BoxWithMaterialId box)
     {
         return _repository.CreateBox(box);
     }
 
-    public Box UpdateBox(Box box)
+    public BoxWithMaterialId UpdateBox(BoxWithMaterialId box)
     {
         return _repository.UpdateBox(box);
     }

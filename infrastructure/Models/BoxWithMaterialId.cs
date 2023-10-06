@@ -2,7 +2,7 @@
 
 namespace infrastructure.Models;
 
-public class Box
+public class BoxWithMaterialId
 {
     public Guid? Guid { get; set; }
     [Required]
@@ -22,5 +22,5 @@ public class Box
     public string? Description { get; set; }
     public DateTime? Created { get; set; }
     public int? Quantity { get; set; }
-    public Material? Material { get; set; }
+    public int? MaterialId { get; set; }
 }

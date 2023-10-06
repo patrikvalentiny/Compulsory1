@@ -36,13 +36,13 @@ public class BoxStorageController : Controller
     }
     
     [HttpPost("")]
-    public IActionResult CreateBox([FromBody] Box box)
+    public IActionResult CreateBox([FromBody] BoxWithMaterialId box)
     {
         return Ok(_service.CreateBox(box));
     }
     
     [HttpPut("{guid}")]
-    public IActionResult UpdateBox([FromBody] Box box, [FromRoute] Guid guid)
+    public IActionResult UpdateBox([FromBody] BoxWithMaterialId box, [FromRoute] Guid guid)
     {
         box.Guid = guid;
         return Ok(_service.UpdateBox(box));

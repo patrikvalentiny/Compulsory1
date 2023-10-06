@@ -11,8 +11,7 @@ public static class Helper
     public static NpgsqlDataSource DataSource;
 
     public static string RebuildScript = @"
-DROP SCHEMA IF EXISTS box_factory CASCADE;
-CREATE SCHEMA box_factory;
+DROP TABLE IF EXISTS box_factory.box_inventory CASCADE;
 CREATE EXTENSION IF NOT EXISTS ""uuid-ossp"";
 create table box_factory.box_inventory
 (
@@ -23,7 +22,11 @@ create table box_factory.box_inventory
     location         varchar(256),
     description      text,
     datetime_created timestamp with time zone default CURRENT_TIMESTAMP,
-    title            varchar(256)             default 'tmp'::character varying not null
+    title            varchar(256)             default 'tmp',
+    quantity         integer                  default 0                        not null,
+    material_id      integer
+        constraint box_inventory_materials_id_fk
+            references box_factory.materials
 );
  ";
 
