@@ -1,6 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MaterialService} from "../material.service";
 import {Material} from "../material";
+import {CrudService} from "../crud.service";
 
 @Component({
   selector: 'app-materials-dropdown',
@@ -9,6 +10,7 @@ import {Material} from "../material";
 })
 export class MaterialsDropdownComponent implements OnInit{
   public readonly service = inject(MaterialService);
+  public readonly boxService = inject(CrudService);
   selectedMaterial = "All";
 
   ngOnInit(): void {
@@ -16,7 +18,8 @@ export class MaterialsDropdownComponent implements OnInit{
   }
 
   filterByMaterial(material: Material) {
-    this.service.filterByMaterial(material);
     this.selectedMaterial = material.name;
+    this.boxService.filterMaterial = material.name;
+    this.boxService.filterBoxes();
   }
 }

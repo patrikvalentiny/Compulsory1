@@ -27,7 +27,7 @@ public class BoxService
         return _boxRepository.CreateBox(box);
     }
 
-    public BoxWithMaterialId UpdateBox(BoxWithMaterialId box)
+    public BoxWithMaterialId UpdateBox(Box box)
     {
         return _boxRepository.UpdateBox(box);
     }

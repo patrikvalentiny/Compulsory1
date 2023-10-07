@@ -23,6 +23,6 @@ export class MaterialService {
   }
 
   filterByMaterial(material: Material) {
-    this.boxService.filteredBoxes = this.boxService.boxes.filter(b => b.materialName == material.name);
+    this.boxService.filterMaterial = material.name;
   }
 }

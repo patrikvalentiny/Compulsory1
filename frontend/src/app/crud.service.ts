@@ -13,6 +13,8 @@ export class CrudService {
 
   public boxes: BoxOverviewItem[] = [];
   public filteredBoxes: BoxOverviewItem[] = [];
+  filterMaterial: string = "";
+  searchTerm: string | null = "";
 
   constructor() {
     this.getBoxes();
@@ -37,7 +39,7 @@ export class CrudService {
     try{
       const call = this.http.delete(`http://localhost:5000/api/boxes/${guid}`);
       await firstValueFrom(call);
-      this.boxes = this.boxes.filter(b => b.guid != guid);
+      this.filteredBoxes = this.filteredBoxes.filter(b => b.guid != guid);
     } catch (e){
 
     }
@@ -45,7 +47,7 @@ export class CrudService {
 
   async updateBox(formGroup: FormGroup, boxGuid: string) {
     try{
-      const call = this.http.put(`http://localhost:5000/api/boxes/${boxGuid}`, formGroup.value);
+      const call = this.http.put(`http://localhost:5000/api/boxes`, formGroup.value);
       await firstValueFrom(call);
     } catch (e){
         console.log(e)
@@ -59,6 +61,13 @@ export class CrudService {
     } catch (e){
       console.log(e);
       return undefined;
+    }
+  }
+
+  filterBoxes() {
+    this.filteredBoxes = this.boxes.filter(b => b.materialName === this.filterMaterial || this.filterMaterial === "All");
+    if (this.searchTerm != null && this.searchTerm != ""){
+      this.filteredBoxes = this.filteredBoxes.filter(b => b.title.toLowerCase().includes(this.searchTerm!.toLowerCase()));
     }
   }
 }
