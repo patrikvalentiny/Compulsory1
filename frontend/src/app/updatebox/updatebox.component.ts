@@ -33,8 +33,8 @@ export class UpdateBoxComponent implements OnInit {
 
     }
 
-    ngOnInit(): void {
-        this.selectedBox = this.service.boxes.find(box => box.guid === this.boxGuid);
+    async ngOnInit() {
+        this.selectedBox = await this.service.getBox(this.boxGuid);
 
         this.widthInput.setValue(this.selectedBox?.width || null);
         this.heightInput.setValue(this.selectedBox?.height || null);

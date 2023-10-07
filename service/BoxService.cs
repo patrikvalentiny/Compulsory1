@@ -36,4 +36,9 @@ public class BoxService
     {
         return _boxRepository.DeleteBox(guid);
     }
+
+    public IEnumerable<BoxOverviewItem> GetFeed()
+    {
+        return _boxRepository.GetFeed();
+    }
 }

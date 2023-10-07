@@ -1,12 +1,29 @@
-<div class="flex flex-row flex-wrap justify-center gap-4">
-  <div *ngFor="let box of service.boxes" class="card w-96 bg-base-200 shadow-xl">
-    <div class="card-body">
-      <h2 class="card-title">{{box.width.toFixed(2)}}X{{box.height.toFixed(2)}}X{{box.depth.toFixed(2)}}</h2>
-      <p>{{box.description}}</p>
-      <div class="card-actions flex flex-row justify-end">
-        <a routerLink="/update/{{box.guid}}"><button class="btn btn-primary">Update</button></a>
-        <button (click)="deleteBox(box.guid)" class="btn btn-secondary">Delete</button>
-      </div>
+<div class="flex flex-col gap-8">
+    <div class="join w-full justify-center">
+        <input [formControl]="searchTerm" class="input input-bordered join-item rounded-l-full lg:w-2/4 w-64" placeholder="Search text"/>
+        <button class="btn join-item rounded-r-full w-32" (click)="search()">Search</button>
     </div>
-  </div>
+
+    <div class="flex flex-row flex-wrap justify-center gap-4 w-full">
+
+        <div *ngFor="let box of service.boxes" class="card w-96 bg-base-200 shadow-xl">
+            <div class="card-body gap-6 justify-around">
+                <div class="flex flex-col justify-start gap-2">
+                    <h2 class="card-title h-20 inline-block align-top">{{box.title}}</h2>
+                    <div class="flex flex-col gap-1">
+                        <label>{{box.width.toFixed(2)}} x {{box.height.toFixed(2)}} x {{box.depth.toFixed(2)}}
+                            cm</label>
+                        <label>Quantity: {{box.quantity}}</label>
+                        <label>Material: {{box.materialName}}</label>
+                    </div>
+                </div>
+                <div class="card-actions flex flex-row justify-end">
+                    <a routerLink="/update/{{box.guid}}">
+                        <button class="btn btn-primary">Update</button>
+                    </a>
+                    <button (click)="deleteBox(box.guid)" class="btn btn-secondary">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

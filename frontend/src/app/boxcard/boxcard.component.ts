@@ -1,6 +1,7 @@
 import {Component, Inject, inject} from '@angular/core';
 import {CrudService} from "../crud.service";
 import {Router} from "@angular/router";
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-boxcard',
@@ -10,6 +11,7 @@ import {Router} from "@angular/router";
 export class BoxCardComponent {
   public readonly service = inject(CrudService);
   public _router:Router = Inject(Router);
+  searchTerm = new FormControl("", [Validators.required]);
 
   constructor( ) {
   }
@@ -25,4 +27,8 @@ export class BoxCardComponent {
   navigateUpdateBox(guid: string) {
     this._router.navigateByUrl('/updatebox', {state: {guid: guid}});
   }
+
+    search() {
+
+    }
 }

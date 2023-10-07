@@ -115,4 +115,21 @@ public class BoxRepository
         using var con = _dataSource.OpenConnection();
         return con.Execute(sql, new { guid });
     }
+
+    public IEnumerable<BoxOverviewItem> GetFeed()
+    {
+       const string sql = @$"SELECT 
+        guid as {nameof(BoxOverviewItem.Guid)},
+        width as {nameof(BoxOverviewItem.Width)},
+        height as {nameof(BoxOverviewItem.Height)},
+        depth as {nameof(BoxOverviewItem.Depth)},
+        title as {nameof(BoxOverviewItem.Title)}, 
+        quantity as {nameof(BoxOverviewItem.Quantity)},
+        material_name as {nameof(BoxOverviewItem.MaterialName)}
+        FROM box_factory.box_inventory
+        INNER JOIN box_factory.materials m on m.id = box_inventory.material_id";
+
+        using var con = _dataSource.OpenConnection();
+        return con.Query<BoxOverviewItem>(sql);
+    }
 }

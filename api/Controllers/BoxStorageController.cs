@@ -21,6 +21,12 @@ public class BoxStorageController : Controller
         return Ok(_boxService.GetAllBoxes());
     }
     
+    [HttpGet("feed")]
+    public IActionResult GetFeed()
+    {
+        return Ok(_boxService.GetFeed());
+    }
+    
     [HttpGet ("{guid}")]
     public IActionResult GetBoxByGuid([FromRoute]Guid guid)
     {
