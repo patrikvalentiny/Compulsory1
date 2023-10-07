@@ -8,17 +8,17 @@ namespace api.Controllers;
 [Route("api/boxes")]
 public class BoxStorageController : Controller
 {
-    private readonly Service _service;
+    private readonly BoxService _boxService;
     
-    public BoxStorageController(Service service)
+    public BoxStorageController(BoxService boxService)
     {
-        _service = service;
+        _boxService = boxService;
     }
     
     [HttpGet ("")]
     public IActionResult GetAllBoxes()
     {
-        return Ok(_service.GetAllBoxes());
+        return Ok(_boxService.GetAllBoxes());
     }
     
     [HttpGet ("{guid}")]
@@ -26,7 +26,7 @@ public class BoxStorageController : Controller
     {
         try
         {
-            return Ok(_service.GetBoxByGuid(guid));
+            return Ok(_boxService.GetBoxByGuid(guid));
         }
         catch (InvalidOperationException e)
         {
@@ -38,14 +38,13 @@ public class BoxStorageController : Controller
     [HttpPost("")]
     public IActionResult CreateBox([FromBody] BoxWithMaterialId box)
     {
-        return Ok(_service.CreateBox(box));
+        return Ok(_boxService.CreateBox(box));
     }
     
-    [HttpPut("{guid}")]
-    public IActionResult UpdateBox([FromBody] BoxWithMaterialId box, [FromRoute] Guid guid)
+    [HttpPut("")]
+    public IActionResult UpdateBox([FromBody] BoxWithMaterialId box)
     {
-        box.Guid = guid;
-        return Ok(_service.UpdateBox(box));
+        return Ok(_boxService.UpdateBox(box));
     }
     
     [HttpDelete("{guid}")]
@@ -53,7 +52,7 @@ public class BoxStorageController : Controller
     {
         try
         {
-            _service.DeleteBox(guid);
+            _boxService.DeleteBox(guid);
             return NoContent();
         }
         catch (Exception e)

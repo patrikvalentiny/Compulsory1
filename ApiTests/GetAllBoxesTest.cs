@@ -83,6 +83,6 @@ public class GetAllBoxesTest
     [TearDown]
     public void TearDown()
     {
-        Helper.TriggerRebuild();
+        //Helper.TriggerRebuild();
     }
 }
