@@ -1,0 +1,6 @@
+<details class="dropdown dropdown-hover w-full">
+    <summary  tabindex="0" class="m-1 btn w-full">{{selectedMaterial}}</summary>
+    <ul  tabindex="0" class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-full">
+        <li class="p-2 hover:bg-base-200" *ngFor="let material of service.materials" (click)="filterByMaterial(material)">{{material.name}}</li>
+    </ul>
+</details>

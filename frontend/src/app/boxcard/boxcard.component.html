@@ -1,7 +1,12 @@
 <div class="flex flex-col gap-8">
-    <div class="join w-full justify-center">
-        <input [formControl]="searchTerm" class="input input-bordered join-item rounded-l-full lg:w-2/4 w-64" placeholder="Search text" (keyup.enter)="search()"/>
-        <button class="btn join-item rounded-r-full w-32" (click)="search()" >Search</button>
+    <div class="flex flex-row flex-wrap w-full justify-center items-center gap-8">
+        <div class="join lg:w-4/6 w-full">
+            <input [formControl]="searchTerm" class="input input-bordered join-item rounded-l-full w-full"
+                   placeholder="Search text" (keyup.enter)="search()"/>
+            <button class="btn join-item rounded-r-full w-32" (click)="search()">Search</button>
+        </div>
+
+        <app-materials-dropdown class="lg:w-1/5 w-full"></app-materials-dropdown>
     </div>
 
     <div class="flex flex-row flex-wrap justify-center gap-4 w-full">
