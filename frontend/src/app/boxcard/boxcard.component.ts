@@ -29,6 +29,6 @@ export class BoxCardComponent {
   }
 
     search() {
-
+      this.service.filteredBoxes = this.service.boxes.filter(b => b.title.toLowerCase().includes(this.searchTerm.value ?? "" .toLowerCase()));
     }
 }

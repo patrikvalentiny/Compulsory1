@@ -12,6 +12,7 @@ export class CrudService {
   private readonly http = inject(HttpClient)
 
   public boxes: BoxOverviewItem[] = [];
+  public filteredBoxes: BoxOverviewItem[] = [];
 
   constructor() {
     this.getBoxes();
@@ -29,6 +30,7 @@ export class CrudService {
   async getBoxes() {
     const call = this.http.get<BoxOverviewItem[]>("http://localhost:5000/api/boxes/feed");
     this.boxes = await firstValueFrom<BoxOverviewItem[]>(call);
+    this.filteredBoxes = this.boxes;
   }
 
   async deleteBox(guid: string) {

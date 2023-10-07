@@ -10,6 +10,7 @@ import {BoxCardComponent } from './boxcard/boxcard.component';
 import {UpdateBoxComponent} from "./updatebox/updatebox.component";
 import {HomeComponent} from "./home/home.component";
 import {RouterModule} from "@angular/router";
+import { MaterialsDropdownComponent } from './materials-dropdown/materials-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {RouterModule} from "@angular/router";
     CreateBoxComponent,
     BoxCardComponent,
     UpdateBoxComponent,
+    MaterialsDropdownComponent,
   ],
   imports: [
     BrowserModule,
