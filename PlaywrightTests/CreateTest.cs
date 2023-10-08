@@ -12,7 +12,7 @@ public class CreateTests : PageTest
     }
 
     [Test]
-    public async Task Test1()
+    public async Task TestCreateBox()
     {
         await Page.GetByTestId("titleInput").FillAsync("TestTitle");
         await Page.GetByTestId("widthInput").FillAsync("10");
