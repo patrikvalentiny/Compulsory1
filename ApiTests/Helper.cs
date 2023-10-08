@@ -1,8 +1,4 @@
-﻿using Dapper;
-using Newtonsoft.Json;
-using Npgsql;
-
-namespace ApiTests;
+﻿namespace ApiTests;
 
 public static class Helper
 {

@@ -37,6 +37,9 @@ export class CreateBoxComponent implements OnInit {
     })
 
     editingAllowed = true;
+    confirmationText: string = "Your box has been created!";
+    showResponse: boolean = false;
+    showResponseFail: boolean = false;
 
     constructor() {
 
@@ -46,9 +49,11 @@ export class CreateBoxComponent implements OnInit {
         this.respondBox = await this.service.createBox(this.formGroup);
         if (this.respondBox !== undefined) {
             this.formGroup.reset();
+            this.confirmationText = "Your box has been created!";
+            this.showResponse = true;
             this.service.selectedMaterial = null;
             setTimeout(() => {
-                this.respondBox = undefined;
+                this.showResponse = false;
             }, 2000);
         }
     }
@@ -87,6 +92,23 @@ export class CreateBoxComponent implements OnInit {
     }
 
     async updateBox() {
-        await this.service.updateBox(this.formGroup, this.boxGuid);
+        try {
+            await this.service.updateBox(this.formGroup, this.boxGuid);
+            this.confirmationText = "Your box has been updated!";
+            this.showResponse = true;
+            this.editingAllowed = false;
+            setTimeout(() => {
+                this.showResponse = false;
+            }, 2000);
+        } catch (e){
+            this.confirmationText = "Whoopsy daisy!";
+            this.showResponseFail = true;
+            this.showResponse = true;
+            setTimeout(() => {
+                this.showResponse = false;
+            }, 2000);
+            console.log(e);
+        }
+
     }
 }

@@ -67,8 +67,10 @@ public class BoxRepository
 
     public BoxWithMaterialId CreateBox(BoxWithMaterialId box)
     {
-        const string sql = @$"INSERT INTO box_factory.box_inventory (title, width, height, depth, location, description, quantity, material_id) 
-        VALUES (@{nameof(BoxWithMaterialId.Title)}, @{nameof(BoxWithMaterialId.Width)}, @{nameof(BoxWithMaterialId.Height)}, @{nameof(BoxWithMaterialId.Depth)}, @{nameof(BoxWithMaterialId.Location)}, @{nameof(BoxWithMaterialId.Description)}, @{nameof(BoxWithMaterialId.Quantity)}, @{nameof(BoxWithMaterialId.MaterialId)})
+        box.Guid ??= Guid.NewGuid();
+        
+        const string sql = @$"INSERT INTO box_factory.box_inventory (guid, title, width, height, depth, location, description, quantity, material_id) 
+        VALUES (@{nameof(BoxWithMaterialId.Guid)}, @{nameof(BoxWithMaterialId.Title)}, @{nameof(BoxWithMaterialId.Width)}, @{nameof(BoxWithMaterialId.Height)}, @{nameof(BoxWithMaterialId.Depth)}, @{nameof(BoxWithMaterialId.Location)}, @{nameof(BoxWithMaterialId.Description)}, @{nameof(BoxWithMaterialId.Quantity)}, @{nameof(BoxWithMaterialId.MaterialId)})
         RETURNING 
             guid as {nameof(BoxWithMaterialId.Guid)}, 
             width as {nameof(BoxWithMaterialId.Width)}, 

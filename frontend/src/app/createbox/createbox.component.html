@@ -10,7 +10,8 @@
         <label class="label">
             <span class="label-text">Title</span>
         </label>
-        <input [formControl]="titleInput" class="input input-bordered w-full max-w-xs" data-testid="titleInput" placeholder="Type here"
+        <input [formControl]="titleInput" class="input input-bordered w-full max-w-xs" data-testid="titleInput"
+               placeholder="Type here"
                type="text"/>
     </div>
     <div class="flex flex-row flex-wrap justify-left gap-3">
@@ -19,7 +20,8 @@
 
             <label class="input-group">
                 <span class="w-20 justify-center">Width</span>
-                <input [formControl]="widthInput" class="input input-bordered" data-testid="widthInput" min="0" placeholder="Width"
+                <input [formControl]="widthInput" class="input input-bordered" data-testid="widthInput" min="0"
+                       placeholder="Width"
                        type="number"/>
                 <span>cm</span>
             </label>
@@ -28,7 +30,8 @@
         <div class="form-control">
             <label class="input-group">
                 <span class="w-20 justify-center">Height</span>
-                <input [formControl]="heightInput" class="input input-bordered" data-testid="heightInput" min="0" placeholder="Height"
+                <input [formControl]="heightInput" class="input input-bordered" data-testid="heightInput" min="0"
+                       placeholder="Height"
                        type="number"/>
                 <span>cm</span>
             </label>
@@ -37,7 +40,8 @@
         <div class="form-control">
             <label class="input-group">
                 <span class="w-20 justify-center">Depth</span>
-                <input [formControl]="depthInput" class="input input-bordered" data-testid="depthInput" min="0" placeholder="Depth"
+                <input [formControl]="depthInput" class="input input-bordered" data-testid="depthInput" min="0"
+                       placeholder="Depth"
                        type="number"/>
                 <span>cm</span>
             </label>
@@ -47,7 +51,8 @@
         <label class="label">
             <span class="label-text">Box location</span>
         </label>
-        <input [formControl]="locationInput" class="input input-bordered w-full max-w-xs" data-testid="locationInput" placeholder="Type here"
+        <input [formControl]="locationInput" class="input input-bordered w-full max-w-xs" data-testid="locationInput"
+               placeholder="Type here"
                type="text"/>
     </div>
     <div class="form-control">
@@ -60,11 +65,13 @@
     <div class="form-control">
         <label class="input-group">
             <span class="w-20 justify-center">Quantity</span>
-            <input [formControl]="quantityInput" class="input input-bordered" data-testid="quantityInput" min="0" placeholder="10"
+            <input [formControl]="quantityInput" class="input input-bordered" data-testid="quantityInput" min="0"
+                   placeholder="10"
                    type="number"/>
         </label>
     </div>
-    <button *ngIf="!editingAllowed" [disabled]="true" class="btn m-1 rounded-full lg:w-1/6 w-full" data-testid="materialsDropdownButton"
+    <button *ngIf="!editingAllowed" [disabled]="true" class="btn m-1 rounded-full lg:w-1/6 w-full"
+            data-testid="materialsDropdownButton"
             tabindex="0">Material: {{service.selectedMaterial?.name ?? "Select a material"}}</button>
     <app-materials-dropdown *ngIf="editingAllowed" class="lg:w-1/6 w-full"></app-materials-dropdown>
 
@@ -75,15 +82,20 @@
     <button (click)="updateBox()" *ngIf="boxGuid !== undefined" [disabled]="!editingAllowed"
             class="btn btn-primary my-2">Update
     </button>
-    <div [class.opacity-100]="respondBox !== undefined" class="pt-12 transition-opacity transi h-max justify-end w-full opacity-0"
+    <div [class.opacity-100]="showResponse" class="transition-opacity h-max justify-end w-full opacity-0"
          data-testid="confirmationAlert">
-        <div class="alert alert-success w-full">
-            <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
+        <div class="alert alert-success w-full rounded-full" [class.alert-error]="showResponseFail">
+            <svg *ngIf="!showResponseFail" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
                  xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
                       stroke-width="2"/>
             </svg>
-            <span>Your box has been created!</span>
+            <svg *ngIf="showResponseFail" xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>{{confirmationText}}</span>
         </div>
     </div>
 </div>

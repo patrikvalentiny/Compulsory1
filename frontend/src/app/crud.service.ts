@@ -52,7 +52,7 @@ export class CrudService {
             const call = this.http.put(`http://localhost:5000/api/boxes`, {guid: boxGuid, title: formGroup.value.title, width: formGroup.value.width, height: formGroup.value.height, depth: formGroup.value.depth, quantity: formGroup.value.quantity, location: formGroup.value.location, description: formGroup.value.description, materialId: this.selectedMaterial?.id});
             await firstValueFrom(call);
         } catch (e) {
-            console.log(e)
+            throw e;
         }
     }
 

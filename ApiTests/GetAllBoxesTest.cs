@@ -3,14 +3,13 @@
 public class GetAllBoxesTest
 {
     private HttpClient _httpClient;
-    private List<Box> _boxes = new ();
-    private int _boxCount = 20;
+    private readonly List<Box> _boxes = new ();
+    private readonly int _boxCount = 20;
     
     [SetUp]
     public void Setup()
     {
         _httpClient = new HttpClient();
-        Helper.TriggerRebuild();
 
         List<Material> materials;
 
@@ -83,6 +82,11 @@ public class GetAllBoxesTest
     [TearDown]
     public void TearDown()
     {
-        //Helper.TriggerRebuild();
+        foreach (var box in _boxes)
+        {
+            using var conn = Helper.DataSource.OpenConnection();
+            var sql = @"DELETE FROM box_factory.box_inventory WHERE guid = @guid";
+            conn.Execute(sql, new { guid = box.Guid });
+        }
     }
 }
