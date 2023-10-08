@@ -56,7 +56,7 @@ export class CreateBoxComponent implements OnInit {
     async ngOnInit() {
 
 
-        if (this.boxGuid !== undefined){
+        if (this.boxGuid !== undefined) {
             this.editingAllowed = false;
             this.selectedBox = await this.service.getBox(this.boxGuid);
 

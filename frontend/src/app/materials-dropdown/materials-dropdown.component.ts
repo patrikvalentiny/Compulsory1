@@ -9,6 +9,7 @@ import {CrudService} from "../crud.service";
 })
 export class MaterialsDropdownComponent implements OnInit {
     public readonly boxService = inject(CrudService);
+    protected readonly self = self;
 
     ngOnInit(): void {
         this.boxService.getMaterials();
@@ -23,6 +24,4 @@ export class MaterialsDropdownComponent implements OnInit {
             this.boxService.filterBoxes();
         }
     }
-
-    protected readonly self = self;
 }

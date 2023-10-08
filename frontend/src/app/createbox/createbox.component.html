@@ -1,70 +1,87 @@
 <div class="flex flex-col flex-wrap w-full h-full gap-8">
-  <h1 class="font-mono text-2xl">Create box</h1>
-  <div class="form-control" *ngIf="boxGuid !== undefined">
-    <label class="w-full label cursor-pointer justify-end gap-2">
-      <span class="label-text">Allow editing</span>
-      <input type="checkbox" class="toggle toggle-error"  [checked]="editingAllowed" (change)="allowEdit()"  />
-    </label>
-  </div>
-  <div class="form-control w-full max-w-xs">
-    <label class="label">
-      <span class="label-text">Title</span>
-    </label>
-    <input data-testid="titleInput" [formControl]="titleInput" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
-  </div>
-  <div class="flex flex-row flex-wrap justify-left gap-3">
+    <h1 class="font-mono text-2xl">Create box</h1>
+    <div *ngIf="boxGuid !== undefined" class="form-control">
+        <label class="w-full label cursor-pointer justify-end gap-2">
+            <span class="label-text">Allow editing</span>
+            <input (change)="allowEdit()" [checked]="editingAllowed" class="toggle toggle-error" type="checkbox"/>
+        </label>
+    </div>
+    <div class="form-control w-full max-w-xs">
+        <label class="label">
+            <span class="label-text">Title</span>
+        </label>
+        <input [formControl]="titleInput" class="input input-bordered w-full max-w-xs" data-testid="titleInput" placeholder="Type here"
+               type="text"/>
+    </div>
+    <div class="flex flex-row flex-wrap justify-left gap-3">
 
+        <div class="form-control">
+
+            <label class="input-group">
+                <span class="w-20 justify-center">Width</span>
+                <input [formControl]="widthInput" class="input input-bordered" data-testid="widthInput" min="0" placeholder="Width"
+                       type="number"/>
+                <span>cm</span>
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label class="input-group">
+                <span class="w-20 justify-center">Height</span>
+                <input [formControl]="heightInput" class="input input-bordered" data-testid="heightInput" min="0" placeholder="Height"
+                       type="number"/>
+                <span>cm</span>
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label class="input-group">
+                <span class="w-20 justify-center">Depth</span>
+                <input [formControl]="depthInput" class="input input-bordered" data-testid="depthInput" min="0" placeholder="Depth"
+                       type="number"/>
+                <span>cm</span>
+            </label>
+        </div>
+    </div>
+    <div class="form-control w-full max-w-xs">
+        <label class="label">
+            <span class="label-text">Box location</span>
+        </label>
+        <input [formControl]="locationInput" class="input input-bordered w-full max-w-xs" data-testid="locationInput" placeholder="Type here"
+               type="text"/>
+    </div>
     <div class="form-control">
-
-      <label class="input-group">
-        <span class="w-20 justify-center">Width</span>
-        <input  data-testid="widthInput" [formControl]="widthInput" type="number" min="0" placeholder="Width" class="input input-bordered"/>
-        <span>cm</span>
-      </label>
+        <label class="label">
+            <span class="label-text">Box description</span>
+        </label>
+        <textarea [formControl]="descriptionInput" class="textarea textarea-bordered h-24"
+                  data-testid="descriptionInput" placeholder="Bio"></textarea>
     </div>
-
     <div class="form-control">
-      <label class="input-group">
-        <span class="w-20 justify-center">Height</span>
-        <input data-testid="heightInput" [formControl]="heightInput" type="number" min="0" placeholder="Height" class="input input-bordered"/>
-        <span>cm</span>
-      </label>
+        <label class="input-group">
+            <span class="w-20 justify-center">Quantity</span>
+            <input [formControl]="quantityInput" class="input input-bordered" data-testid="quantityInput" min="0" placeholder="10"
+                   type="number"/>
+        </label>
     </div>
+    <app-materials-dropdown class="lg:w-1/6 w-full"></app-materials-dropdown>
 
-    <div class="form-control">
-      <label class="input-group">
-        <span class="w-20 justify-center">Depth</span>
-        <input data-testid="depthInput" [formControl]="depthInput" type="number" min="0" placeholder="Depth" class="input input-bordered"/>
-        <span>cm</span>
-      </label>
+    <button (click)="createBox()" *ngIf="boxGuid === undefined"
+            [disabled]="formGroup.invalid || service.selectedMaterial === null" class="btn btn-primary my-2"
+            data-testid="submitButton">Submit
+    </button>
+    <button (click)="updateBox()" *ngIf="boxGuid !== undefined" [disabled]="!editingAllowed"
+            class="btn btn-primary my-2">Update
+    </button>
+    <div [class.opacity-100]="respondBox !== undefined" class="pt-12 transition-opacity transi h-max justify-end w-full opacity-0"
+         data-testid="confirmationAlert">
+        <div class="alert alert-success w-full">
+            <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2"/>
+            </svg>
+            <span>Your box has been created!</span>
+        </div>
     </div>
-  </div>
-  <div class="form-control w-full max-w-xs">
-    <label class="label">
-      <span class="label-text">Box location</span>
-    </label>
-    <input data-testid="locationInput" [formControl]="locationInput" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
-  </div>
-  <div class="form-control">
-    <label class="label">
-      <span class="label-text">Box description</span>
-    </label>
-    <textarea data-testid="descriptionInput" [formControl]="descriptionInput" class="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
-  </div>
-  <div class="form-control">
-    <label class="input-group">
-      <span class="w-20 justify-center">Quantity</span>
-      <input data-testid="quantityInput" [formControl]="quantityInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
-    </label>
-  </div>
-  <app-materials-dropdown class="lg:w-1/6 w-full"></app-materials-dropdown>
-
-  <button data-testid="submitButton" class="btn btn-primary my-2" [disabled]="formGroup.invalid || service.selectedMaterial === null" *ngIf="boxGuid === undefined"  (click)="createBox()">Submit</button>
-  <button class="btn btn-primary my-2" [disabled]="!editingAllowed" (click)="updateBox()" *ngIf="boxGuid !== undefined">Update</button>
-  <div data-testid="confirmationAlert" class="pt-12 transition-opacity transi h-max justify-end w-full opacity-0" [class.opacity-100]="respondBox !== undefined">
-    <div class="alert alert-success w-full">
-      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-      <span>Your box has been created!</span>
-    </div>
-  </div>
 </div>

@@ -1,4 +1,4 @@
-import {Component, Inject, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CrudService} from "../crud.service";
 import {FormControl, Validators} from "@angular/forms";
 
