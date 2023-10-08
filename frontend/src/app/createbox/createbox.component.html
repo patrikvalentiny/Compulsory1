@@ -12,7 +12,7 @@
 
       <label class="input-group">
         <span class="w-20 justify-center">Width</span>
-        <input  data-testid="widthInput" [formControl]="widthInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
+        <input  data-testid="widthInput" [formControl]="widthInput" type="number" min="0" placeholder="Width" class="input input-bordered"/>
         <span>cm</span>
       </label>
     </div>
@@ -20,7 +20,7 @@
     <div class="form-control">
       <label class="input-group">
         <span class="w-20 justify-center">Height</span>
-        <input data-testid="heightInput" [formControl]="heightInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
+        <input data-testid="heightInput" [formControl]="heightInput" type="number" min="0" placeholder="Height" class="input input-bordered"/>
         <span>cm</span>
       </label>
     </div>
@@ -28,7 +28,7 @@
     <div class="form-control">
       <label class="input-group">
         <span class="w-20 justify-center">Depth</span>
-        <input data-testid="depthInput" [formControl]="depthInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
+        <input data-testid="depthInput" [formControl]="depthInput" type="number" min="0" placeholder="Depth" class="input input-bordered"/>
         <span>cm</span>
       </label>
     </div>
@@ -53,12 +53,12 @@
   </div>
   <app-materials-dropdown class="lg:w-1/6 w-full"></app-materials-dropdown>
 
-  <button data-testid="submitButton" class="btn btn-primary my-2" [disabled]="formGroup.invalid" (click)="createBox()">Submit</button>
+  <button data-testid="submitButton" class="btn btn-primary my-2" [disabled]="formGroup.invalid || service.selectedMaterial === null" (click)="createBox()">Submit</button>
 
   <div data-testid="confirmationAlert" class="pt-12 transition-opacity transi h-max justify-end w-full opacity-0" [class.opacity-100]="respondBox !== undefined">
     <div class="alert alert-success w-full">
       <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-      <span>Your purchase has been confirmed!</span>
+      <span>Your box has been created!</span>
     </div>
   </div>
 </div>

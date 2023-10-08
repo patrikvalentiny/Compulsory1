@@ -37,4 +37,11 @@ public class CreateTests : PageTest
         await Expect(confirmationAlert).ToHaveCSSAsync("opacity","1");
         await Expect(confirmationAlert).ToHaveCSSAsync("opacity","0");
     }
+    
+    [TearDown]
+    public void TearDown()
+    {
+        Page.CloseAsync();
+        
+    }
 }

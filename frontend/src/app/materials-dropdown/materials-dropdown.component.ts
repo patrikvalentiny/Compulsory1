@@ -18,7 +18,7 @@ export class MaterialsDropdownComponent implements OnInit {
     }
 
     filterByMaterial(material: Material) {
-        if (material == this.selectedMaterial) {
+        if (material === this.selectedMaterial) {
             this.selectedMaterial = {name: "Select a material", id: -1};
             this.boxService.selectedMaterial = null;
             this.boxService.filterBoxes();
@@ -27,5 +27,6 @@ export class MaterialsDropdownComponent implements OnInit {
             this.boxService.selectedMaterial = material;
             this.boxService.filterBoxes();
         }
+        console.log(this.boxService.selectedMaterial)
     }
 }
