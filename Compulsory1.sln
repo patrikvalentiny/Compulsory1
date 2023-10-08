@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "ApiTests\ApiTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaywrightTests", "PlaywrightTests\PlaywrightTests.csproj", "{F21D6985-4047-4B4C-8765-A184EB635665}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxGenerator", "BoxGenerator\BoxGenerator.csproj", "{339C1307-C2ED-499A-A47C-F8021E9139B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{F21D6985-4047-4B4C-8765-A184EB635665}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F21D6985-4047-4B4C-8765-A184EB635665}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F21D6985-4047-4B4C-8765-A184EB635665}.Release|Any CPU.Build.0 = Release|Any CPU
+		{339C1307-C2ED-499A-A47C-F8021E9139B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{339C1307-C2ED-499A-A47C-F8021E9139B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{339C1307-C2ED-499A-A47C-F8021E9139B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{339C1307-C2ED-499A-A47C-F8021E9139B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

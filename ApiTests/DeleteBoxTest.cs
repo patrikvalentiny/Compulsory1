@@ -10,7 +10,6 @@ public class DeleteBoxTest
     public void SetUp()
     {
         _httpClient = new HttpClient();
-        Helper.TriggerRebuild();
 
         List<int> materials;
 
