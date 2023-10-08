@@ -19,10 +19,5 @@ export class MaterialService {
   async getMaterials() {
     const call = this.http.get<Material[]>("http://localhost:5000/api/materials");
     this.materials = await firstValueFrom<Material[]>(call);
-    this.materials.push({name: "All", id: 256})
-  }
-
-  filterByMaterial(material: Material) {
-    this.boxService.filterMaterial = material.name;
   }
 }

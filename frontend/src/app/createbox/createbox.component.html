@@ -1,10 +1,18 @@
-<div class="flex flex-col flex-wrap w-full gap-8">
+<div class="flex flex-col flex-wrap w-full h-full gap-8">
   <h1 class="font-mono text-2xl">Create box</h1>
+  <div class="form-control w-full max-w-xs">
+    <label class="label">
+      <span class="label-text">Title</span>
+    </label>
+    <input data-testid="titleInput" [formControl]="titleInput" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+  </div>
   <div class="flex flex-row flex-wrap justify-left gap-3">
+
     <div class="form-control">
+
       <label class="input-group">
         <span class="w-20 justify-center">Width</span>
-        <input [formControl]="widthInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
+        <input  data-testid="widthInput" [formControl]="widthInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
         <span>cm</span>
       </label>
     </div>
@@ -12,7 +20,7 @@
     <div class="form-control">
       <label class="input-group">
         <span class="w-20 justify-center">Height</span>
-        <input [formControl]="heightInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
+        <input data-testid="heightInput" [formControl]="heightInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
         <span>cm</span>
       </label>
     </div>
@@ -20,7 +28,7 @@
     <div class="form-control">
       <label class="input-group">
         <span class="w-20 justify-center">Depth</span>
-        <input [formControl]="depthInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
+        <input data-testid="depthInput" [formControl]="depthInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
         <span>cm</span>
       </label>
     </div>
@@ -29,14 +37,28 @@
     <label class="label">
       <span class="label-text">Box location</span>
     </label>
-    <input [formControl]="locationInput" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+    <input data-testid="locationInput" [formControl]="locationInput" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
   </div>
   <div class="form-control">
     <label class="label">
       <span class="label-text">Box description</span>
     </label>
-    <textarea [formControl]="descriptionInput" class="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+    <textarea data-testid="descriptionInput" [formControl]="descriptionInput" class="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
   </div>
+  <div class="form-control">
+    <label class="input-group">
+      <span class="w-20 justify-center">Quantity</span>
+      <input data-testid="quantityInput" [formControl]="quantityInput" type="number" min="0" placeholder="10" class="input input-bordered"/>
+    </label>
+  </div>
+  <app-materials-dropdown class="lg:w-1/6 w-full"></app-materials-dropdown>
 
-  <button class="btn btn-primary my-2" [disabled]="formGroup.invalid" (click)="createBox()">Submit</button>
+  <button data-testid="submitButton" class="btn btn-primary my-2" [disabled]="formGroup.invalid" (click)="createBox()">Submit</button>
+
+  <div data-testid="confirmationAlert" class="pt-12 transition-opacity transi h-max justify-end w-full opacity-0" [class.opacity-100]="respondBox !== undefined">
+    <div class="alert alert-success w-full">
+      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      <span>Your purchase has been confirmed!</span>
+    </div>
+  </div>
 </div>

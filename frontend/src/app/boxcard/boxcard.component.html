@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-8">
+<div class="flex flex-col gap-8 w-full items-center">
     <div class="flex flex-row flex-wrap w-full justify-center items-center gap-8">
         <div class="join lg:w-4/6 w-full">
             <input [formControl]="searchTerm" class="input input-bordered join-item rounded-l-full w-full"
@@ -8,8 +8,7 @@
 
         <app-materials-dropdown class="lg:w-1/5 w-full"></app-materials-dropdown>
     </div>
-
-    <div class="flex flex-row flex-wrap justify-center gap-4 w-full">
+    <div class="flex flex-row flex-wrap justify-center content-center justify-items-center gap-4 w-5/6">
 
         <div *ngFor="let box of service.filteredBoxes" class="card w-96 bg-base-200 shadow-xl">
             <div class="card-body gap-6 justify-around">

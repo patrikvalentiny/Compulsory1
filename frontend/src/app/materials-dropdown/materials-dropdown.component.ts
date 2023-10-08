@@ -4,22 +4,28 @@ import {Material} from "../material";
 import {CrudService} from "../crud.service";
 
 @Component({
-  selector: 'app-materials-dropdown',
-  templateUrl: './materials-dropdown.component.html',
-  styleUrls: ['./materials-dropdown.component.css']
+    selector: 'app-materials-dropdown',
+    templateUrl: './materials-dropdown.component.html',
+    styleUrls: ['./materials-dropdown.component.css']
 })
-export class MaterialsDropdownComponent implements OnInit{
-  public readonly service = inject(MaterialService);
-  public readonly boxService = inject(CrudService);
-  selectedMaterial = "All";
+export class MaterialsDropdownComponent implements OnInit {
+    public readonly service = inject(MaterialService);
+    public readonly boxService = inject(CrudService);
+    selectedMaterial:Material | null = {name: "Select a material", id: -1};
 
-  ngOnInit(): void {
-    this.service.getMaterials();
-  }
+    ngOnInit(): void {
+        this.service.getMaterials();
+    }
 
-  filterByMaterial(material: Material) {
-    this.selectedMaterial = material.name;
-    this.boxService.filterMaterial = material.name;
-    this.boxService.filterBoxes();
-  }
+    filterByMaterial(material: Material) {
+        if (material == this.selectedMaterial) {
+            this.selectedMaterial = {name: "Select a material", id: -1};
+            this.boxService.selectedMaterial = null;
+            this.boxService.filterBoxes();
+        } else {
+            this.selectedMaterial = material;
+            this.boxService.selectedMaterial = material;
+            this.boxService.filterBoxes();
+        }
+    }
 }

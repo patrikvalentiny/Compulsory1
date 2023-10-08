@@ -1,6 +1,6 @@
 <div class="dropdown dropdown-hover w-full">
-    <label tabindex="0" class="btn m-1 w-full rounded-full">Material: {{selectedMaterial}}</label>
-    <ul  tabindex="0" class="p-2 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-full">
-        <li class="p-2 hover:bg-base-300" *ngFor="let material of service.materials" (click)="filterByMaterial(material)">{{material.name}}</li>
+    <button data-testid="materialsDropdownButton" tabindex="0" class="btn m-1 w-full rounded-full" [disabled]="service.materials.length === 0">Material: {{selectedMaterial?.name}}</button>
+    <ul data-testid="materialsDropdown" tabindex="0" class="p-2 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-full gap-2">
+        <li data-testid="materialsDropdownItem" class="p-3 hover:bg-base-300 rounded-xl" [class.bg-neutral-focus]="material.name == selectedMaterial?.name" *ngFor="let material of service.materials" (click)="filterByMaterial(material)">{{material.name}}</li>
     </ul>
 </div>
