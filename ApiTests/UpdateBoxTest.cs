@@ -1,9 +1,11 @@
 ﻿namespace ApiTests;
 
-public class GetSingleBoxTest
+public class UpdateBoxTest
 {
     private HttpClient _httpClient;
     private BoxWithMaterialId box;
+    private BoxWithMaterialId updateBox;
+    private Faker<BoxWithMaterialId> boxes;
     [SetUp]
     public void SetUp()
     {
@@ -17,7 +19,7 @@ public class GetSingleBoxTest
         materials = conn.Query<int>(sql).ToList();
         
         
-        var boxes = new Faker<BoxWithMaterialId>()
+        boxes = new Faker<BoxWithMaterialId>()
             .StrictMode(true)
             .RuleFor(o => o.Width, f => f.Random.Decimal(min:0.01m, max: 300m))
             .RuleFor(o => o.Height, f => f.Random.Decimal(min:0.01m, max: 300m))
@@ -33,18 +35,20 @@ public class GetSingleBoxTest
         sql = @$"INSERT INTO box_factory.box_inventory (guid, title, width, height, depth, location, description, quantity, material_id) 
         VALUES (@{nameof(BoxWithMaterialId.Guid)}, @{nameof(BoxWithMaterialId.Title)}, @{nameof(BoxWithMaterialId.Width)}, @{nameof(BoxWithMaterialId.Height)}, @{nameof(BoxWithMaterialId.Depth)}, @{nameof(BoxWithMaterialId.Location)}, @{nameof(BoxWithMaterialId.Description)}, @{nameof(BoxWithMaterialId.Quantity)}, @{nameof(BoxWithMaterialId.MaterialId)})";
         box = boxes.Generate();
+        updateBox = boxes.Generate();
+        updateBox.Guid = box.Guid;
         conn.Execute(sql, box);
     }
     
     [Test]
     public async Task TestReturnIsInput()
     {
-        var url = $@"http://localhost:5000/api/boxes/{box.Guid}";
-
+        var url = $@"http://localhost:5000/api/boxes";
+        
         HttpResponseMessage response;
         try
         {
-            response = _httpClient.GetAsync(url).Result;
+            response = _httpClient.PutAsJsonAsync(url, updateBox).Result;
             TestContext.WriteLine("THE FULL BODY RESPONSE: " + response.Content.ReadAsStringAsync().Result);
         }
 
@@ -53,10 +57,10 @@ public class GetSingleBoxTest
             throw new Exception(Helper.NoResponseMessage, e);
         }
         
-        Box responseObject;
+        BoxWithMaterialId responseObject;
         try
         {
-            responseObject = JsonConvert.DeserializeObject<Box>(
+            responseObject = JsonConvert.DeserializeObject<BoxWithMaterialId>(
                 await response.Content.ReadAsStringAsync()) ?? throw new InvalidOperationException();
         }
         catch (Exception e)
@@ -66,8 +70,7 @@ public class GetSingleBoxTest
 
         using (new AssertionScope())
         {
-            box.Should().BeEquivalentTo(responseObject, options => options.Excluding(o => o.Created).Excluding(o => o.Material));
-            box.MaterialId.Should().Be(responseObject.Material?.Id);
+            updateBox.Should().BeEquivalentTo(responseObject, options => options.Excluding(o => o.Created));
         }
     }
     
@@ -75,7 +78,7 @@ public class GetSingleBoxTest
     public void TearDown()
     {
         using var conn = Helper.DataSource.OpenConnection();
-        var sql = @$"DELETE FROM box_factory.box_inventory WHERE guid = @guid";
-        conn.Execute(sql, new {guid = box.Guid});
+        var sql = @$"DELETE FROM box_factory.box_inventory WHERE guid = @{nameof(Box.Guid)}";
+        conn.Execute(sql, box);
     }
 }

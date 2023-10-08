@@ -94,16 +94,16 @@ public class BoxRepository
         width = @{nameof(BoxWithMaterialId.Width)}, height = @{nameof(BoxWithMaterialId.Height)}, depth = @{nameof(BoxWithMaterialId.Depth)}, location = @{nameof(BoxWithMaterialId.Location)},description = @{nameof(BoxWithMaterialId.Description)}, quantity = @{nameof(BoxWithMaterialId.Quantity)}, material_id = @{nameof(BoxWithMaterialId.MaterialId)}
         WHERE guid = @{nameof(BoxWithMaterialId.Guid)}
         RETURNING 
-            guid as {nameof(Box.Guid)}, 
-            width as {nameof(Box.Width)}, 
-            height as {nameof(Box.Height)}, 
-            depth as {nameof(Box.Depth)}, 
-            location as {nameof(Box.Location)}, 
-            description as {nameof(Box.Description)},
-            datetime_created as {nameof(Box.Created)},
-            title as {nameof(Box.Title)}, 
-            quantity as {nameof(Box.Quantity)},
-            material_id as {nameof(Box.Material.Id)}
+            guid as {nameof(BoxWithMaterialId.Guid)}, 
+            width as {nameof(BoxWithMaterialId.Width)}, 
+            height as {nameof(BoxWithMaterialId.Height)}, 
+            depth as {nameof(BoxWithMaterialId.Depth)}, 
+            location as {nameof(BoxWithMaterialId.Location)}, 
+            description as {nameof(BoxWithMaterialId.Description)},
+            datetime_created as {nameof(BoxWithMaterialId.Created)},
+            title as {nameof(BoxWithMaterialId.Title)}, 
+            quantity as {nameof(BoxWithMaterialId.Quantity)},
+            material_id as {nameof(BoxWithMaterialId.MaterialId)}
             ";
 
         using var con = _dataSource.OpenConnection();

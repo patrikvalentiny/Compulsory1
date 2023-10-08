@@ -66,7 +66,7 @@ public class CreateBoxTests
         {
             (await Helper.IsCorsFullyEnabledAsync(url)).Should().BeTrue();
             response.IsSuccessStatusCode.Should().BeTrue();
-            responseObject.Should().BeEquivalentTo(box, options => options.Excluding(o => o.Guid).Excluding(o => o.Created));
+            responseObject.Should().BeEquivalentTo(box, options => options.Excluding(o => o.Created));
         }
     }
 
