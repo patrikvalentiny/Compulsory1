@@ -1,8 +1,8 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CrudService} from "../crud.service";
-import {MaterialService} from "../material.service";
 import {BoxWithMaterialId} from "../box-with-material-id";
+import {Box} from "../box";
 
 @Component({
     selector: 'app-createbox',
@@ -11,7 +11,9 @@ import {BoxWithMaterialId} from "../box-with-material-id";
 })
 export class CreateBoxComponent implements OnInit {
     readonly service = inject(CrudService);
-    private readonly materialService = inject(MaterialService);
+
+    @Input('guid') boxGuid = '';
+
 
     widthInput = new FormControl(0, [Validators.required, Validators.min(0)]);
     heightInput = new FormControl(0, [Validators.required, Validators.min(0)]);
@@ -22,6 +24,7 @@ export class CreateBoxComponent implements OnInit {
     quantityInput = new FormControl(0, [Validators.required, Validators.min(0)]);
 
     respondBox: BoxWithMaterialId | undefined;
+    selectedBox: Box | undefined;
 
     formGroup = new FormGroup({
         width: this.widthInput,
@@ -32,6 +35,8 @@ export class CreateBoxComponent implements OnInit {
         title: this.titleInput,
         quantity: this.quantityInput,
     })
+
+    editingAllowed = true;
 
     constructor() {
 
@@ -48,7 +53,40 @@ export class CreateBoxComponent implements OnInit {
         }
     }
 
-    ngOnInit(): void {
-        this.service.selectedMaterial = null;
+    async ngOnInit() {
+
+
+        if (this.boxGuid !== undefined){
+            this.editingAllowed = false;
+            this.selectedBox = await this.service.getBox(this.boxGuid);
+
+            this.widthInput.setValue(this.selectedBox?.width || null);
+            this.heightInput.setValue(this.selectedBox?.height || null);
+            this.depthInput.setValue(this.selectedBox?.depth || null);
+            this.descriptionInput.setValue(this.selectedBox?.description || null);
+            this.locationInput.setValue(this.selectedBox?.location || null);
+            this.titleInput.setValue(this.selectedBox?.title || null);
+            this.quantityInput.setValue(this.selectedBox?.quantity || null);
+            this.service.selectedMaterial = this.selectedBox?.material || null;
+
+            this.formGroup.disable();
+
+
+        } else {
+            this.service.selectedMaterial = null;
+        }
+    }
+
+    allowEdit() {
+        this.editingAllowed = !this.editingAllowed;
+        if (this.editingAllowed) {
+            this.formGroup.enable();
+        } else {
+            this.formGroup.disable();
+        }
+    }
+
+    async updateBox() {
+        await this.service.updateBox(this.formGroup, this.boxGuid);
     }
 }

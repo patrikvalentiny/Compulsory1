@@ -86,11 +86,11 @@ public class BoxRepository
         return con.QueryFirst<BoxWithMaterialId>(sql, box);
     }
 
-    public BoxWithMaterialId UpdateBox(Box box)
+    public BoxWithMaterialId UpdateBox(BoxWithMaterialId box)
     {
-        const string sql = @$"UPDATE box_factory.box_inventory SET title = @{nameof(Box.Title)},
-        width = @{nameof(Box.Width)}, height = @{nameof(Box.Height)}, depth = @{nameof(Box.Depth)}, location = @{nameof(Box.Location)},description = @{nameof(Box.Description)}, quantity = @{nameof(Box.Quantity)}, material_id = @{nameof(Box.Material.Id)}
-        WHERE guid = @{nameof(Box.Guid)}
+        const string sql = @$"UPDATE box_factory.box_inventory SET title = @{nameof(BoxWithMaterialId.Title)},
+        width = @{nameof(BoxWithMaterialId.Width)}, height = @{nameof(BoxWithMaterialId.Height)}, depth = @{nameof(BoxWithMaterialId.Depth)}, location = @{nameof(BoxWithMaterialId.Location)},description = @{nameof(BoxWithMaterialId.Description)}, quantity = @{nameof(BoxWithMaterialId.Quantity)}, material_id = @{nameof(BoxWithMaterialId.MaterialId)}
+        WHERE guid = @{nameof(BoxWithMaterialId.Guid)}
         RETURNING 
             guid as {nameof(Box.Guid)}, 
             width as {nameof(Box.Width)}, 
@@ -101,7 +101,7 @@ public class BoxRepository
             datetime_created as {nameof(Box.Created)},
             title as {nameof(Box.Title)}, 
             quantity as {nameof(Box.Quantity)},
-            material_id as {nameof(Box.Material.Id)},
+            material_id as {nameof(Box.Material.Id)}
             ";
 
         using var con = _dataSource.OpenConnection();

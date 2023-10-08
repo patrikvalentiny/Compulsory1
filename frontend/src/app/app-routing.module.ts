@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {CreateBoxComponent} from "./createbox/createbox.component";
 import {BoxCardComponent} from "./boxcard/boxcard.component";
-import {UpdateBoxComponent} from "./updatebox/updatebox.component";
 
 const routes: Routes = [
   {
@@ -20,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'update/:guid',
-    component:UpdateBoxComponent
+    component:CreateBoxComponent
   }
 ];
 

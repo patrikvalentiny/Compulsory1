@@ -1,5 +1,4 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {MaterialService} from "../material.service";
 import {Material} from "../material";
 import {CrudService} from "../crud.service";
 
@@ -9,24 +8,21 @@ import {CrudService} from "../crud.service";
     styleUrls: ['./materials-dropdown.component.css']
 })
 export class MaterialsDropdownComponent implements OnInit {
-    public readonly service = inject(MaterialService);
     public readonly boxService = inject(CrudService);
-    selectedMaterial:Material | null = {name: "Select a material", id: -1};
 
     ngOnInit(): void {
-        this.service.getMaterials();
+        this.boxService.getMaterials();
     }
 
     filterByMaterial(material: Material) {
-        if (material === this.selectedMaterial) {
-            this.selectedMaterial = {name: "Select a material", id: -1};
+        if (material === this.boxService.selectedMaterial) {
             this.boxService.selectedMaterial = null;
             this.boxService.filterBoxes();
         } else {
-            this.selectedMaterial = material;
             this.boxService.selectedMaterial = material;
             this.boxService.filterBoxes();
         }
-        console.log(this.boxService.selectedMaterial)
     }
+
+    protected readonly self = self;
 }

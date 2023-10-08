@@ -48,7 +48,7 @@ public class BoxStorageController : Controller
     }
     
     [HttpPut("")]
-    public IActionResult UpdateBox([FromBody] Box box)
+    public IActionResult UpdateBox([FromBody] BoxWithMaterialId box)
     {
         return Ok(_boxService.UpdateBox(box));
     }
