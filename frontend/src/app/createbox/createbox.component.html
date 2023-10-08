@@ -64,7 +64,9 @@
                    type="number"/>
         </label>
     </div>
-    <app-materials-dropdown class="lg:w-1/6 w-full"></app-materials-dropdown>
+    <button *ngIf="!editingAllowed" [disabled]="true" class="btn m-1 rounded-full lg:w-1/6 w-full" data-testid="materialsDropdownButton"
+            tabindex="0">Material: {{service.selectedMaterial?.name ?? "Select a material"}}</button>
+    <app-materials-dropdown *ngIf="editingAllowed" class="lg:w-1/6 w-full"></app-materials-dropdown>
 
     <button (click)="createBox()" *ngIf="boxGuid === undefined"
             [disabled]="formGroup.invalid || service.selectedMaterial === null" class="btn btn-primary my-2"
