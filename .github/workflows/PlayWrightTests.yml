@@ -25,7 +25,7 @@ jobs:
       - run: |
           cd PlaywrightTests/
           dotnet build
-          pwsh bin/Debug/8.0/playwright.ps1 install
+          pwsh bin/Debug/net8.0/playwright.ps1 install
           ng build
           dotnet run & sleep 20 && dotnet test && kill -9 $(lsof -t -i:5000)
         
