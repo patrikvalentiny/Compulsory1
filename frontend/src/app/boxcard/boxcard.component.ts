@@ -10,12 +10,21 @@ import {FormControl, Validators} from "@angular/forms";
 export class BoxCardComponent implements OnInit {
     public readonly service = inject(CrudService);
     searchTerm = new FormControl("", [Validators.required]);
+  confirmDelete: boolean = false;
 
     constructor() {
     }
 
     deleteBox(guid: string) {
+      try {
         this.service.deleteBox(guid);
+        this.confirmDelete = true;
+        setTimeout(() => {
+          this.confirmDelete = false;
+        }, 1000);
+      } catch (e) {
+        console.log(e);
+      }
     }
 
     search() {

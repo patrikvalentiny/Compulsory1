@@ -1,6 +1,6 @@
 <div class="flex flex-col flex-wrap w-full h-full gap-8">
     <h1 class="font-mono text-2xl">Create box</h1>
-    <div *ngIf="boxGuid !== undefined" class="form-control">
+    <div *ngIf="boxGuid !== undefined" class="form-control" data-testid="updateToggle">
         <label class="w-full label cursor-pointer justify-end gap-2">
             <span class="label-text">Allow editing</span>
             <input (change)="allowEdit()" [checked]="editingAllowed" class="toggle toggle-error" type="checkbox"/>

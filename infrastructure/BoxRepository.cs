@@ -55,7 +55,7 @@ public class BoxRepository
         material_name as {nameof(Box.Material.Name)}
         FROM box_factory.box_inventory
         INNER JOIN box_factory.materials m on m.id = box_inventory.material_id        
-        where guid = @guid";
+        where guid = @guid ORDER BY datetime_created DESC";
 
         using var con = _dataSource.OpenConnection();
         return con.Query<Box, Material, Box>(sql, (box, material) =>
