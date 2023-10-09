@@ -1,4 +1,4 @@
-name: Run api tests
+﻿name: Run Playwright tests
 
 on:
   pull_request:
@@ -12,9 +12,9 @@ on:
   
   
   workflow_dispatch:
-
+    
 jobs:
-  testApi:
+  runPlaywrightTests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,8 +22,9 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - run: |
-          cd api/
-          dotnet run &
-          sleep 20 && cd ../ApiTests/ && dotnet test && kill -9 $(lsof -t -i:5000)
-        env:
-          pgconn: ${{secrets.pgconn}}
+          cd PlaywrightTests/
+          dotnet build
+          pwsh bin/Debug/netX/playwright.ps1 install
+          ng build
+          dotnet run & sleep 20 && dotnet test && kill -9 $(lsof -t -i:5000)
+        
