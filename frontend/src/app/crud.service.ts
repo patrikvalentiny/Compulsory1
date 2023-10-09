@@ -25,7 +25,7 @@ export class CrudService {
     async createBox(formGroup: FormGroup) {
         const call = this.http.post<BoxWithMaterialId>("http://localhost:5000/api/boxes", {guid: formGroup.value.guid, title: formGroup.value.title, width: formGroup.value.width, height: formGroup.value.height, depth: formGroup.value.depth, quantity: formGroup.value.quantity, location: formGroup.value.location, description: formGroup.value.description, materialId: this.selectedMaterial?.id});
         const response = await firstValueFrom<BoxWithMaterialId>(call);
-        var boxoverviewitem = {guid: response.guid, title: response.title, width: response.width, height: response.height, depth: response.depth, quantity: response.quantity, materialName: String(response.materialId)};
+        var boxoverviewitem = {guid: response.guid, title: response.title, width: response.width, height: response.height, depth: response.depth, quantity: response.quantity, materialName: this.materials.find(m =>m.id === this.selectedMaterial?.id)?.name ?? ""};
         this.boxes.push(boxoverviewitem);
         return response;
 
