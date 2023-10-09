@@ -12,7 +12,11 @@ on:
   
   
   workflow_dispatch:
-    
+ 
+ 
+env:
+  DOTNET_VERSION: 8.0
+
 jobs:
   runPlaywrightTests:
     runs-on: ubuntu-latest
@@ -20,11 +24,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: "$DOTNET_VERSION.x"
       - run: |
           cd PlaywrightTests/
           dotnet build
-          pwsh bin/Debug/netX/playwright.ps1 install
+          pwsh bin/Debug/$DOTNET_VERSION/playwright.ps1 install
           ng build
           dotnet run & sleep 20 && dotnet test && kill -9 $(lsof -t -i:5000)
         
