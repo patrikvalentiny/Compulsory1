@@ -35,4 +35,6 @@ jobs:
           pwsh bin/Debug/net8.0/playwright.ps1 install
           
           dotnet run & sleep 20 && dotnet test && kill -9 $(lsof -t -i:5000)
+        env:
+          pgconn: ${{secrets.pgconn}}
         
