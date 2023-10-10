@@ -15,22 +15,31 @@ on:
  
 
 jobs:
+  setupenv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'latest'
+      - name: build frontend
+        run: |
+          cd frontend/
+          npm install
+          npm run build
+              
   runPlaywrightTests:
     runs-on: ubuntu-latest
+    needs: setupenv
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 'latest'
-        
+    
+          
       - name: Run dotnet build and test
         run: |
-          cd frontend/
-          npm install
-          npm run build
           cd ../PlaywrightTests/
           dotnet build
           pwsh bin/Debug/net8.0/playwright.ps1 install
