@@ -26,7 +26,8 @@ jobs:
         with:
           node-version: 'latest'
         
-      - run: |
+      - name: Run dotnet build and test
+        run: |
           cd frontend/
           npm install
           npm run build
@@ -34,7 +35,7 @@ jobs:
           dotnet build
           pwsh bin/Debug/net8.0/playwright.ps1 install
           
-          dotnet run & sleep 20 && dotnet test && kill -9 $(lsof -t -i:5000)
+          cd ../api && dotnet run & sleep 20 & cd../PlaywrightTests/ && dotnet test && kill -9 $(lsof -t -i:5000)
         env:
           pgconn: ${{secrets.pgconn}}
         
