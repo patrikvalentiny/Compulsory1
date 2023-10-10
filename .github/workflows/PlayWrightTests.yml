@@ -27,9 +27,11 @@ jobs:
           node-version: 'latest'
         
       - run: |
-          cd PlaywrightTests/
+          cd frontend/
+          npm run build
+          cd ../PlaywrightTests/
           dotnet build
           pwsh bin/Debug/net8.0/playwright.ps1 install
-          npm run build
+          
           dotnet run & sleep 20 && dotnet test && kill -9 $(lsof -t -i:5000)
         
