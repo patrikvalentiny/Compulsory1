@@ -34,7 +34,7 @@ public class DeleteTest: PageTest
         box = boxes.Generate();
         conn.Execute(sql, box);
         
-        Page.GotoAsync("http://localhost:4200");
+        Page.GotoAsync("http://localhost:5000");
     }
 
     [Test]
