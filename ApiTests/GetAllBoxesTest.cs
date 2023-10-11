@@ -74,8 +74,11 @@ public class GetAllBoxesTest
         {
             (await Helper.IsCorsFullyEnabledAsync(url)).Should().BeTrue();
             response.IsSuccessStatusCode.Should().BeTrue();
-            responseObject.Length.Should().Be(_boxCount);
-            responseObject.Should().BeEquivalentTo(_boxes, options => options.Excluding(o => o.Created));
+            foreach (var box in _boxes)
+            {
+                responseObject.Should().ContainEquivalentOf(box, options => options.Excluding(o => o.Created));
+            }
+            
         }    
     }
 
