@@ -1,10 +1,15 @@
 using infrastructure;
+using service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString,
     dataSourceBuilder => dataSourceBuilder.EnableParameterLogging());
+builder.Services.AddSingleton<BoxService>();
+builder.Services.AddSingleton<BoxRepository>();
+builder.Services.AddSingleton<MaterialService>();
+builder.Services.AddSingleton<MaterialsRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -36,10 +41,7 @@ app.UseCors(options =>
 });
 
 app.UseSpaStaticFiles();
-app.UseSpa(conf =>
-{
-    conf.Options.SourcePath = frontEndRelativePath;
-});
+app.UseSpa(conf => { conf.Options.SourcePath = frontEndRelativePath; });
 
 app.MapControllers();
 

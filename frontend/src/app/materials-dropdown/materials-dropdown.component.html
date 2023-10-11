@@ -1,0 +1,11 @@
+<div class="dropdown dropdown-hover w-full">
+    <button [disabled]="boxService.materials.length === 0" class="btn m-1 w-full rounded-full" data-testid="materialsDropdownButton"
+            tabindex="0">
+        Material: {{boxService.selectedMaterial?.name ?? "Select a material"}}</button>
+    <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-full gap-2" data-testid="materialsDropdown"
+        tabindex="0">
+        <li (click)="filterByMaterial(material)" *ngFor="let material of boxService.materials"
+            [class.bg-neutral-focus]="material.name == boxService.selectedMaterial?.name"
+            class="p-3 hover:bg-base-300 rounded-xl" data-testid="materialsDropdownItem">{{material.name}}</li>
+    </ul>
+</div>

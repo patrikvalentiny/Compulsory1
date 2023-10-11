@@ -1,0 +1,45 @@
+<div class="w-full">
+  <div class="flex flex-col gap-8 w-full items-center">
+    <div class="flex flex-row flex-wrap w-full justify-center items-center gap-8">
+      <div class="join lg:w-4/6 w-full">
+        <input (keyup.enter)="search()" [formControl]="searchTerm"
+               class="input input-bordered join-item rounded-l-full w-full" placeholder="Search text"/>
+        <button (click)="search()" class="btn join-item rounded-r-full w-32">Search</button>
+      </div>
+
+      <app-materials-dropdown class="lg:w-1/5 w-full"></app-materials-dropdown>
+    </div>
+    <div class="flex flex-row flex-wrap justify-center content-center justify-items-center gap-4 w-5/6"
+         data-testid="galleryWrapper">
+
+      <div *ngFor="let box of service.filteredBoxes" class="card w-96 bg-base-200 shadow-xl" data-testid="galleryItem">
+        <div class="card-body gap-6 justify-around">
+          <div class="flex flex-col justify-start gap-2">
+            <h2 class="card-title h-20 inline-block align-top">{{box.title}}</h2>
+            <div class="flex flex-col gap-1">
+              <label>{{box.width.toFixed(2)}} x {{box.height.toFixed(2)}} x {{box.depth.toFixed(2)}}
+                cm</label>
+              <label>Quantity: {{box.quantity}}</label>
+              <label>Material: {{box.materialName}}</label>
+            </div>
+          </div>
+          <div class="card-actions flex flex-row justify-end">
+            <a routerLink="/update/{{box.guid}}">
+              <button data-testid="updateButton" class="btn btn-primary">Update</button>
+            </a>
+            <button data-testid="deleteButton" (click)="deleteBox(box.guid)" class="btn btn-secondary">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row w-full fixed z-100 justify-end bottom-0 right-0 pb-12 opacity-0 transition-opacity px-12" [class.opacity-100]="confirmDelete" data-testid="confirmDeleteAlert">
+  <div class="alert alert-success w-1/5">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+    <span>Box has been deleted!</span>
+  </div>
+  </div>
+</div>
