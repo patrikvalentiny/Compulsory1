@@ -1,7 +1,22 @@
 using infrastructure;
+using Serilog;
+using Serilog.Events;
 using service;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    //.WriteTo.Console()
+    .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+    .CreateLogger();
+
+Log.Information("Starting web application");
+
+builder.Host.UseSerilog(); // <-- Add this line
+    
 
 // Add services to the container.
 builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString,
@@ -19,6 +34,8 @@ var frontEndRelativePath = "../frontend/www";
 builder.Services.AddSpaStaticFiles(conf => conf.RootPath = frontEndRelativePath);
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
