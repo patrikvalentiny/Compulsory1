@@ -1,5 +1,6 @@
 using infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using service;
 
 namespace api.Controllers;
@@ -9,50 +10,78 @@ namespace api.Controllers;
 public class BoxStorageController : Controller
 {
     private readonly BoxService _boxService;
-    
+
     public BoxStorageController(BoxService boxService)
     {
         _boxService = boxService;
     }
-    
-    [HttpGet ("")]
+
+    [HttpGet("")]
     public IActionResult GetAllBoxes()
     {
-        return Ok(_boxService.GetAllBoxes());
+        try
+        {
+            return Ok(_boxService.GetAllBoxes());
+        }
+        catch (Exception e)
+        {
+            Log.Error(e.Message);
+            return BadRequest();
+        }
     }
-    
+
     [HttpGet("feed")]
     public IActionResult GetFeed()
     {
         return Ok(_boxService.GetFeed());
     }
-    
-    [HttpGet ("{guid}")]
-    public IActionResult GetBoxByGuid([FromRoute]Guid guid)
+
+    [HttpGet("{guid}")]
+    public IActionResult GetBoxByGuid([FromRoute] Guid guid)
     {
         try
         {
             return Ok(_boxService.GetBoxByGuid(guid));
         }
-        catch (InvalidOperationException e)
+        catch (InvalidOperationException)
         {
             return NotFound("Box does not exist");
         }
-        
+        catch (Exception e)
+        {
+            Log.Error(e.Message);
+            return BadRequest();
+        }
     }
-    
+
     [HttpPost("")]
     public IActionResult CreateBox([FromBody] BoxWithMaterialId box)
     {
-        return Ok(_boxService.CreateBox(box));
+        try
+        {
+            return Ok(_boxService.CreateBox(box));
+        }
+        catch (Exception e)
+        {
+            Log.Error(e.Message);
+            return BadRequest();
+        }
     }
-    
+
     [HttpPut("")]
     public IActionResult UpdateBox([FromBody] BoxWithMaterialId box)
     {
-        return Ok(_boxService.UpdateBox(box));
+        try
+        {
+            return Ok(_boxService.UpdateBox(box));
+        }
+        catch (Exception e)
+        {
+            Log.Error(e.Message);
+            return BadRequest();
+        }
     }
-    
+
     [HttpDelete("{guid}")]
     public IActionResult DeleteBox([FromRoute] Guid guid)
     {
@@ -63,8 +92,8 @@ public class BoxStorageController : Controller
         }
         catch (Exception e)
         {
+            Log.Error(e.Message);
             return BadRequest(e.Message);
         }
-        
     }
 }
