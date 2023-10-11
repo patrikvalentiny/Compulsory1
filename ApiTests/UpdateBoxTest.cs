@@ -10,7 +10,6 @@ public class UpdateBoxTest
     public void SetUp()
     {
         _httpClient = new HttpClient();
-        Helper.TriggerRebuild();
 
         List<int> materials;
 

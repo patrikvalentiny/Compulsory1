@@ -8,7 +8,6 @@ public class GetSingleBoxTest
     public void SetUp()
     {
         _httpClient = new HttpClient();
-        Helper.TriggerRebuild();
 
         List<int> materials;
 
