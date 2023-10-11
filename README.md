@@ -13,13 +13,14 @@
 * [Dotnet](https://dotnet.microsoft.com)
 * [Rest API](https://restfulapi.net)
 * [Playwright](https://playwright.dev)
-* [Fluent Assertions](https://fluentassertions.com/)
-* [Dapper](https://github.com/DapperLib/Dapper)
+* [Fluent Assertions](https://fluentassertions.com)
 * [Bogus](https://github.com/bchavez/Bogus)
+
 
 #### Database
 * [ElephantSQL](https://www.elephantsql.com)
 * [PostgresSQL](https://www.postgresql.org)
+* [Dapper](https://github.com/DapperLib/Dapper)
 
 ## Box Factory
 The boomer boss of the box factory wants to modernise by having an inhouse application to keep track of their products (boxes).
