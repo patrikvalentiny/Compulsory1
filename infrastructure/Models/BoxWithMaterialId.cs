@@ -24,5 +24,7 @@ public class BoxWithMaterialId
     [Required]
     [Range(0, 1_000_000)]
     public int? Quantity { get; set; }
+    [Required]
+    [Range(0, 1_000_000)]
     public int? MaterialId { get; set; }
 }

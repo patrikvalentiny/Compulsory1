@@ -21,6 +21,8 @@ public class Box
     public string? Location { get; set; }
     public string? Description { get; set; }
     public DateTime? Created { get; set; }
+    [Required]
+    [Range(0, 1_000_000)]
     public int? Quantity { get; set; }
     public Material? Material { get; set; }
 }

@@ -1,3 +1,6 @@
+using System.Net;
+using FluentAssertions.Primitives;
+
 namespace ApiTests;
 
 public class CreateBoxTests
@@ -30,12 +33,14 @@ public class CreateBoxTests
             .RuleFor(o => o.Quantity, f => f.Random.Int(min: 1, max: 1000))
             .RuleFor(o => o.MaterialId, f => f.PickRandom<int>(materials));
         
-        box = _boxFaker.Generate();
+        
     }
 
     [Test]
     public async Task CreateBox()
     {
+        box = _boxFaker.Generate();
+        
         var url = "http://localhost:5000/api/boxes";
 
         HttpResponseMessage response;
@@ -67,6 +72,49 @@ public class CreateBoxTests
             (await Helper.IsCorsFullyEnabledAsync(url)).Should().BeTrue();
             response.IsSuccessStatusCode.Should().BeTrue();
             responseObject.Should().BeEquivalentTo(box, options => options.Excluding(o => o.Created));
+        }
+    }
+    
+    //Fail due to tittle length
+    [TestCase("title")]
+    [TestCase("width")]
+    [TestCase("materialId")]
+    public async Task FailDueToDataValidation(string failType)
+    {
+        switch (failType)
+        {
+            case "title" :
+                box = _boxFaker.Generate();
+                box.Title = "A";
+                break;
+            case "width":
+                box = _boxFaker.Generate();
+                box.Width = -1;
+                break;
+            case "materialId":
+                box = _boxFaker.Generate();
+                box.MaterialId = -1;
+                break;
+        }
+        var url = "http://localhost:5000/api/boxes";
+
+        HttpResponseMessage response;
+        try
+        {
+            response = await _httpClient.PostAsJsonAsync(url, box);
+            TestContext.WriteLine("THE FULL BODY RESPONSE: " + await response.Content.ReadAsStringAsync());
+        }
+
+        catch (Exception e)
+        {
+            throw new Exception(Helper.NoResponseMessage, e);
+        }
+        
+        
+        using (new AssertionScope())
+        {
+            (await Helper.IsCorsFullyEnabledAsync(url)).Should().BeTrue();
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
     }
 
